@@ -1,0 +1,36 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/tests.cpp",
+   "-o",
+   "obj/tests.o"
+  ],
+  "file": "src/tests.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/Account.cpp",
+   "-o",
+   "obj/Account.o"
+  ],
+  "file": "src/Account.cpp"
+ }
+]

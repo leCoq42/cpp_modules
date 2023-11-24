@@ -1,0 +1,70 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/PhoneBook.cpp",
+   "-o",
+   "obj/PhoneBook.o"
+  ],
+  "file": "src/PhoneBook.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/Contact.cpp",
+   "-o",
+   "obj/Contact.o"
+  ],
+  "file": "src/Contact.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp00/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++11",
+   "-I",
+   "include",
+   "-c",
+   "src/utils.cpp",
+   "-o",
+   "obj/utils.o"
+  ],
+  "file": "src/utils.cpp"
+ }
+]
