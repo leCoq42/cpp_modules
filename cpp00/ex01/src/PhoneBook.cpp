@@ -6,10 +6,9 @@ PhoneBook::PhoneBook() { cur = 0; }
 PhoneBook::~PhoneBook() {}
 
 void PhoneBook::add() {
-  std::cout << "Adding Contact:" << std::endl;
-
   if (this->cur >= MAX_CONTACTS)
     this->cur = 0;
+  std::cout << "Adding Contact (" << this->cur << "):" << std::endl;
 
   Contact new_contact;
   new_contact.set_first();
@@ -30,11 +29,14 @@ void PhoneBook::search() {
   try {
     index = std::stoi(input);
   } catch (const std::invalid_argument &) {
-    std::cout << "Invalid input/index!" << std::endl;
+    std::cout << "Invalid index!" << std::endl;
+    return;
+  } catch (const std::out_of_range &) {
+    std::cout << "Invalid Index: Out of Range!" << std::endl;
     return;
   }
   if (index < 0 || index > MAX_CONTACTS - 1) {
-    std::cout << "Invalid input/index!" << std::endl;
+    std::cout << "Invalid Index: Out of Range!" << std::endl;
     return;
   }
   this->print_contact(index);
@@ -43,10 +45,10 @@ void PhoneBook::search() {
 
 void PhoneBook::print_overview() {
   std::cout << "---------------------------------------------" << std::endl;
-  std::cout << "|" << std::setw(10) << "index";
-  std::cout << "|" << std::setw(10) << "first name";
-  std::cout << "|" << std::setw(10) << "last name";
-  std::cout << "|" << std::setw(11) << "nickname|" << std::endl;
+  std::cout << "|" << std::setw(10) << "Index";
+  std::cout << "|" << std::setw(10) << "First Name";
+  std::cout << "|" << std::setw(10) << "Last Name";
+  std::cout << "|" << std::setw(11) << "Nickname|" << std::endl;
   std::cout << "---------------------------------------------" << std::endl;
 
   for (int i = 0; i < MAX_CONTACTS; i++) {
