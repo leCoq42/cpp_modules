@@ -12,11 +12,7 @@ int main(void) {
     std::getline(std::cin, input);
 
     if (std::cin.eof()) {
-      std::cin.clear();
-      clearerr(stdin);
-      std::cout << std::endl;
-      std::cout << "EOF signal detected: Exiting Phonebook." << std::endl;
-      return (0);
+      handle_eof();
     } else if (input == "EXIT")
       return (0);
     else if (input == "ADD")

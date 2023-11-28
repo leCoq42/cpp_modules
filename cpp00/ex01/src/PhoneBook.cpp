@@ -24,7 +24,7 @@ void PhoneBook::search() {
   this->print_overview();
 
   std::string input;
-  input = get_valid_input("Enter Index: ");
+  input = get_input("Enter Index: ");
   int index;
   try {
     index = std::stoi(input);
