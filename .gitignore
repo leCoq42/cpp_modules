@@ -32,4 +32,4 @@
 *.app
 
 # Cache
-*/.cache/*
+.cache/*
