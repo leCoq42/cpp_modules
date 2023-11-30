@@ -31,6 +31,5 @@
 *.out
 *.app
 
-# Compildedb and cache
-compile_commands.json
+# Cache
 .cache/
