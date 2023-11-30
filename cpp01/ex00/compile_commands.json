@@ -1,0 +1,70 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Zombie.cpp",
+   "-o",
+   "obj/Zombie.o"
+  ],
+  "file": "src/Zombie.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/newZombie.cpp",
+   "-o",
+   "obj/newZombie.o"
+  ],
+  "file": "src/newZombie.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/randomChump.cpp",
+   "-o",
+   "obj/randomChump.o"
+  ],
+  "file": "src/randomChump.cpp"
+ }
+]
