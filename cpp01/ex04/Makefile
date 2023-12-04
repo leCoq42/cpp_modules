@@ -11,7 +11,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRC		:= main.cpp
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 
@@ -20,6 +20,7 @@ all: $(NAME)
 
 clean:
 	@$(RM) $(OBJS)
+	@$(RM) *.replace
 
 fclean: clean
 	@$(RM) $(OBJ_DIR)
