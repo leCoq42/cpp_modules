@@ -2,21 +2,24 @@
 
 int main(int argc, char **argv) {
   if (argc != 4)
-    return (std::cerr << "Invalid Input: Progam takes 3 arguments."
+    return (std::cerr << "Invalid Input: Progam Takes 3 Arguments."
                       << std::endl,
             1);
 
+  const std::string s1 = argv[2];
+  if (s1.empty())
+    return (std::cerr << "Error: Empty Search String Not Valid!" << std::endl,
+            1);
+  const std::string s2 = argv[3];
+
   std::ifstream infile(argv[1]);
   if (!infile)
-    return (std::cerr << "Error: unable to open infile!" << std::endl, 1);
+    return (std::cerr << "Error: Unable To Open Infile!" << std::endl, 1);
 
   std::ofstream outfile(argv[1] + std::string(".replace"));
   if (!outfile)
     return (infile.close(),
-            std::cerr << "Error: unable to create outfile!" << std::endl, 1);
-
-  const std::string s1 = argv[2];
-  const std::string s2 = argv[3];
+            std::cerr << "Error: Unable To Create Outfile!" << std::endl, 1);
 
   std::string line;
   while (getline(infile, line)) {
