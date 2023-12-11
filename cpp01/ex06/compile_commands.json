@@ -1,0 +1,38 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex06",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-g",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp01/ex06",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-g",
+   "-I",
+   "include",
+   "-c",
+   "src/Harl.cpp",
+   "-o",
+   "obj/Harl.o"
+  ],
+  "file": "src/Harl.cpp"
+ }
+]

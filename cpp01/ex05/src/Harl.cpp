@@ -5,7 +5,7 @@ Harl::Harl() {}
 Harl::~Harl() {}
 
 void Harl::complain(std::string level) {
-  for (size_t i = 0; i < sizeof(lvl_arr); i++) {
+  for (size_t i = 0; i < (sizeof(lvl_arr) / sizeof(lvl_arr[0])); i++) {
     if (level == lvl_arr[i]) {
       (this->*func_ptr_arr[i])();
       return;

@@ -1,9 +1,9 @@
-NAME	:= a.out
+NAME	:= harlFilter
 
 ## General ##
 CC		:= g++
 RM		:= rm -rf
-CFLAGS	:= -Wall -Wextra -Werror -std=c++17 -g
+CFLAGS	:= -Wall -Wextra -Werror -std=c++14
 
 ## Directories ##
 INC_DIR	:= include
@@ -20,7 +20,6 @@ all: $(NAME)
 
 clean:
 	@$(RM) $(OBJS)
-	@$(RM) *.replace
 
 fclean: clean
 	@$(RM) $(OBJ_DIR)
