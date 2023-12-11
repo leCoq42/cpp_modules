@@ -3,7 +3,7 @@ NAME	:= a.out
 ## General ##
 CC		:= g++
 RM		:= rm -rf
-CFLAGS	:= -Wall -Wextra -Werror -std=c++17 -g
+CFLAGS	:= -Wall -Wextra -Werror -std=c++17
 
 ## Directories ##
 INC_DIR	:= include

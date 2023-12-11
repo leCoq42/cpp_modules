@@ -1,4 +1,4 @@
-NAME	:= harl.out
+NAME	:= harl
 
 ## General ##
 CC		:= g++

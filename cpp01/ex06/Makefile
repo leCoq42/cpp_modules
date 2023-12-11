@@ -3,7 +3,7 @@ NAME	:= harlFilter
 ## General ##
 CC		:= g++
 RM		:= rm -rf
-CFLAGS	:= -Wall -Wextra -Werror -std=c++14
+CFLAGS	:= -Wall -Wextra -Werror -std=c++17
 
 ## Directories ##
 INC_DIR	:= include
