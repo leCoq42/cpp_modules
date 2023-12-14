@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
   outfile.close();
 }
 
-void find_replace(std::string &line, const std::string s1,
-                  const std::string s2) {
+void find_replace(std::string &line, const std::string &s1,
+                  const std::string &s2) {
   size_t pos = 0;
 
   while ((pos = line.find(s1, pos)) != std::string::npos) {

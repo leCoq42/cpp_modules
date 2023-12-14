@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-void find_replace(std::string &line, const std::string s1,
-                  const std::string s2);
+void find_replace(std::string &line, const std::string &s1,
+                  const std::string &s2);
 
 #endif

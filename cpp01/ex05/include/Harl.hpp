@@ -30,11 +30,11 @@ private:
   void warning(void);
   void error(void);
 
-  const std::string lvl_arr[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+  const std::string _lvl_arr[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-  typedef void (Harl::*func_ptr)();
-  const func_ptr func_ptr_arr[4] = {&Harl::debug, &Harl::info, &Harl::warning,
-                                    &Harl::error};
+  typedef void (Harl::*t_func_ptr)();
+  const t_func_ptr lvl_funcs[4] = {&Harl::debug, &Harl::info, &Harl::warning,
+                                   &Harl::error};
 };
 
 #endif
