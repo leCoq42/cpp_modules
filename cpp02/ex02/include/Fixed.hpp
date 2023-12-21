@@ -17,22 +17,22 @@ public:
 
   Fixed &operator=(const Fixed &fixed);
 
-  Fixed &operator>(const Fixed &fixed);
-  Fixed &operator<(const Fixed &fixed);
-  Fixed &operator<=(const Fixed &fixed);
-  Fixed &operator>=(const Fixed &fixed);
-  Fixed &operator==(const Fixed &fixed);
-  Fixed &operator!=(const Fixed &fixed);
+  bool operator>(const Fixed &fixed);
+  bool operator<(const Fixed &fixed);
+  bool operator<=(const Fixed &fixed);
+  bool operator>=(const Fixed &fixed);
+  bool operator==(const Fixed &fixed);
+  bool operator!=(const Fixed &fixed);
 
-  Fixed &operator*(const Fixed &fixed);
-  Fixed &operator+(const Fixed &fixed);
-  Fixed &operator-(const Fixed &fixed);
-  Fixed &operator/(const Fixed &fixed);
+  Fixed operator*(const Fixed &fixed);
+  Fixed operator+(const Fixed &fixed);
+  Fixed operator-(const Fixed &fixed);
+  Fixed operator/(const Fixed &fixed);
 
-  Fixed &operator++(const Fixed &fixed);
-  Fixed &operator++(const Fixed &fixed);
-  Fixed &operator--(const Fixed &fixed);
-  Fixed &operator--(const Fixed &fixed);
+  Fixed &operator++();
+  Fixed operator++(int n);
+  Fixed &operator--();
+  Fixed operator--(int n);
 
   int getRawBits(void) const;
   void setRawBits(int const raw);
