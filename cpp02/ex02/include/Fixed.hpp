@@ -44,7 +44,7 @@ public:
   int getMin(const int &_fpnValue1, const int &_fpnValue2);
 
 private:
-  int _fpnValue;
+  int _bitValue;
   const static int _fractionalBits = 8;
 };
 
