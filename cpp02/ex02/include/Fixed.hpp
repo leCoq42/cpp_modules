@@ -15,6 +15,12 @@ public:
   Fixed(const int value);
   Fixed(const float value);
 
+  int getRawBits(void) const;
+  void setRawBits(int const raw);
+
+  float toFloat(void) const;
+  int toInt(void) const;
+
   Fixed &operator=(const Fixed &fixed);
 
   bool operator>(const Fixed &fixed);
@@ -34,14 +40,10 @@ public:
   Fixed &operator--();
   Fixed operator--(int n);
 
-  int getRawBits(void) const;
-  void setRawBits(int const raw);
-
-  float toFloat(void) const;
-  int toInt(void) const;
-
-  int getMax(const int &_fpnValue1, const int &_fpnValue2);
-  int getMin(const int &_fpnValue1, const int &_fpnValue2);
+  static Fixed &max(Fixed &a, Fixed &b);
+  static const Fixed &max(const Fixed &a, const Fixed &b);
+  static Fixed &min(Fixed &a, Fixed &b);
+  static const Fixed &min(const Fixed &a, const Fixed &b);
 
 private:
   int _bitValue;
