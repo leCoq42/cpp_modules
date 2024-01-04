@@ -124,7 +124,7 @@ Fixed Fixed::operator+(const Fixed &fixed) {
   std::cout << "Addition operator called!" << std::endl;
 #endif
 
-  return (Fixed(_bitValue + fixed.getRawBits()));
+  return (Fixed(toFloat() + fixed.toFloat()));
 }
 
 Fixed Fixed::operator-(const Fixed &fixed) {
@@ -132,7 +132,7 @@ Fixed Fixed::operator-(const Fixed &fixed) {
   std::cout << "Subtraction operator called!" << std::endl;
 #endif
 
-  return (Fixed(_bitValue - fixed.getRawBits()));
+  return (Fixed(toFloat() - fixed.toFloat()));
 }
 
 Fixed &Fixed::operator++() {
