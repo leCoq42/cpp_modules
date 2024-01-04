@@ -1,27 +1,41 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() : _fpnValue(0) {
+#ifdef DEBUG
   std::cout << "Default constructor called!" << std::endl;
+#endif
 }
 
 Fixed::Fixed(const int ivalue) : _fpnValue(ivalue << _fractionalBits) {
+#ifdef DEBUG
   std::cout << "Int constructor called!" << std::endl;
+#endif
 }
 
 Fixed::Fixed(const float fvalue)
     : _fpnValue(roundf(fvalue * (1 << _fractionalBits))) {
+#ifdef DEBUG
   std::cout << "Float constructor called!" << std::endl;
+#endif
 }
 
 Fixed::Fixed(const Fixed &fixed) {
+#ifdef DEBUG
   std::cout << "Copy constructor called!" << std::endl;
+#endif
   *this = fixed;
 }
 
-Fixed::~Fixed() { std::cout << "Destructor called!" << std::endl; }
+Fixed::~Fixed() {
+#ifdef DEBUG
+  std::cout << "Destructor called!" << std::endl;
+#endif
+}
 
 Fixed &Fixed::operator=(const Fixed &fixed) {
+#ifdef DEBUG
   std::cout << "Copy assignment operator called!" << std::endl;
+#endif
 
   if (this != &fixed)
     _fpnValue = fixed.getRawBits();

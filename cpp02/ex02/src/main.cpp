@@ -15,18 +15,17 @@ int main(void) {
   std::cout << "c is " << c.toInt() << " as integer" << std::endl;
   std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 
+  std::cout << std::endl << "New Part: " << std::endl;
+  std::cout << "--------------------------------" << std::endl;
+
   Fixed e;
-  Fixed const f(Fixed(7.5f));
-  Fixed const g(Fixed(2.5f));
-  Fixed const h(Fixed(7.5f) * Fixed(2.5f));
+  Fixed const f(Fixed(5.05f) * Fixed(2));
   std::cout << e << std::endl;
   std::cout << ++e << std::endl;
   std::cout << e << std::endl;
   std::cout << e++ << std::endl;
   std::cout << e << std::endl;
   std::cout << f << std::endl;
-  std::cout << g << std::endl;
-  std::cout << h << std::endl;
-  std::cout << Fixed::max(e, h) << std::endl;
+  std::cout << Fixed::max(e, f) << std::endl;
   return 0;
 }

@@ -5,6 +5,10 @@ CC		:= g++
 RM		:= rm -rf
 CFLAGS	:= -Wall -Wextra -Werror -std=c++17
 
+ifdef DEBUG
+	CFLAGS += -g -D DEBUG
+endif
+
 ## Directories ##
 INC_DIR	:= include
 SRC_DIR	:= src
@@ -18,6 +22,9 @@ OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 ## Rules ##
 all: $(NAME)
 
+debug:
+	$(MAKE) DEBUG=1
+
 clean:
 	@$(RM) $(OBJS)
 
@@ -26,6 +33,8 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+
+rebug: fclean debug
 
 ## Compilation ##
 $(NAME): $(OBJS)
