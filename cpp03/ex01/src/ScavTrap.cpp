@@ -23,3 +23,5 @@ ScavTrap::~ScavTrap() {
 void ScavTrap::guardGate() {
   std::cout << "ScavTrap has entered in Gate keeper mode" << std::endl;
 }
+
+int ScavTrap::getHitpoints() { return _hitPoints; }

@@ -9,13 +9,17 @@ void test_default_constructor(void) {
   clap1.beRepaired(10);
 
   scav.guardGate();
-  for (int i = 0; i < 60; i++)
+  for (int i = 0; i < 60; i++) {
     scav.attack("Martin");
+    scav.beRepaired(1);
+    std::cout << "hp = " << scav.getHitpoints() << std::endl;
+  }
 
   for (int i = 0; i < 10; i++)
     scav.takeDamage(10);
 
   scav.attack("Martin");
+  clap1.beRepaired(10);
 }
 
 void test_constructors(void) {
