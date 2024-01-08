@@ -83,5 +83,73 @@
    "obj/ScavTrap.o"
   ],
   "file": "src/ScavTrap.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp03/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp03/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/ClapTrap.cpp",
+   "-o",
+   "obj/ClapTrap.o"
+  ],
+  "file": "src/ClapTrap.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp03/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/ScavTrap.cpp",
+   "-o",
+   "obj/ScavTrap.o"
+  ],
+  "file": "src/ScavTrap.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp03/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/FragTrap.cpp",
+   "-o",
+   "obj/FragTrap.o"
+  ],
+  "file": "src/FragTrap.cpp"
  }
 ]

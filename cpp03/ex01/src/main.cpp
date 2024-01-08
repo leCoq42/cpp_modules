@@ -1,35 +1,29 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 void test_default_constructor(void) {
-  ClapTrap clap_trap;
+  ClapTrap clap1;
+  ScavTrap scav;
 
-  clap_trap.attack("Martin");
-  clap_trap.attack("Chav");
-  clap_trap.attack("Lucien");
-  clap_trap.takeDamage(5);
-  clap_trap.beRepaired(1);
-  clap_trap.beRepaired(10);
-  clap_trap.attack("Victor");
-  clap_trap.attack("Martin");
-  clap_trap.attack("Chav");
-  clap_trap.attack("Lucien");
-  clap_trap.attack("Victor");
-  clap_trap.beRepaired(2);
-  clap_trap.attack("Martin");
-  clap_trap.takeDamage(5);
-  clap_trap.takeDamage(10);
-  clap_trap.takeDamage(10);
+  clap1.attack("Martin");
+  clap1.beRepaired(10);
 
-  // show that it is dead
-  clap_trap.attack("Martin");
-  clap_trap.beRepaired(10);
+  scav.guardGate();
+  for (int i = 0; i < 60; i++)
+    scav.attack("Martin");
+
+  for (int i = 0; i < 10; i++)
+    scav.takeDamage(10);
+
+  scav.attack("Martin");
 }
 
 void test_constructors(void) {
   ClapTrap martin("Martin");
   ClapTrap martin_copy(martin);
-  ClapTrap default_claptrap;
-  default_claptrap = martin;
+
+  ScavTrap scav("Chav");
+  ScavTrap scav_copy(scav);
 }
 
 int main(void) {

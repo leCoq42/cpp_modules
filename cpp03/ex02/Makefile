@@ -1,4 +1,4 @@
-NAME	:= scavtrap
+NAME	:= fragtrap
 
 ## General ##
 CC		:= g++
@@ -15,7 +15,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp ClapTrap.cpp ScavTrap.cpp
+SRC		:= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 
