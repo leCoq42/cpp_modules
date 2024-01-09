@@ -1,4 +1,5 @@
 #include "ClapTrap.hpp"
+#include "DiamondTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
@@ -7,11 +8,13 @@ int main(void) {
   ClapTrap clap1;
   ScavTrap scav1;
   FragTrap frag1;
+  DiamondTrap diamond1;
 
   // Test named constructors
   ClapTrap clap2("Clap2");
   ScavTrap scav2("Scav2");
   FragTrap frag2("Frag2");
+  DiamondTrap diamond2("Diamond2");
   std::cout << std::endl;
 
   // Test ClapTrap member functions
@@ -89,4 +92,30 @@ int main(void) {
   std::cout << "HP: " << frag2.getHitPoints() << std::endl;
   std::cout << "EP: " << frag2.getEnergyPoints() << std::endl;
   std::cout << "DMG: " << frag2.getDamage() << std::endl << std::endl;
+
+  // Test DiamondTrap member functions
+  std::cout << "Name: " << diamond1.getName() << std::endl;
+  std::cout << "HP: " << diamond1.getHitPoints() << std::endl;
+  std::cout << "EP: " << diamond1.getEnergyPoints() << std::endl;
+  std::cout << "DMG: " << diamond1.getDamage() << std::endl;
+  diamond1.attack("enemy");
+  diamond1.beRepaired(20);
+  diamond1.takeDamage(10);
+  diamond1.whoAmI();
+  std::cout << "HP: " << diamond1.getHitPoints() << std::endl;
+  std::cout << "EP: " << diamond1.getEnergyPoints() << std::endl;
+  std::cout << "DMG: " << diamond1.getDamage() << std::endl << std::endl;
+
+  // Test DiamondTrap member functions
+  std::cout << "Name: " << diamond2.getName() << std::endl;
+  std::cout << "HP: " << diamond2.getHitPoints() << std::endl;
+  std::cout << "EP: " << diamond2.getEnergyPoints() << std::endl;
+  std::cout << "DMG: " << diamond2.getDamage() << std::endl;
+  diamond2.attack("enemy");
+  diamond2.beRepaired(20);
+  diamond2.takeDamage(10);
+  diamond2.whoAmI();
+  std::cout << "HP: " << diamond2.getHitPoints() << std::endl;
+  std::cout << "EP: " << diamond2.getEnergyPoints() << std::endl;
+  std::cout << "DMG: " << diamond2.getDamage() << std::endl << std::endl;
 }

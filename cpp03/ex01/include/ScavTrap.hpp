@@ -8,9 +8,9 @@ public:
   ScavTrap();
   ScavTrap(std::string name);
   ~ScavTrap();
-  void guardGate();
 
-  int getHitpoints();
+  virtual void attack(const std::string &target) override;
+  void guardGate();
 };
 
 #endif

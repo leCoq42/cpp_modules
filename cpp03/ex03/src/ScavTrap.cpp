@@ -22,17 +22,18 @@ ScavTrap::~ScavTrap() {
 
 void ScavTrap::attack(const std::string &target) {
   if (_hitPoints <= 0) {
-    std::cout << "ScavTrap " << _Name << " is dead!" << std::endl;
+    std::cout << "ScavTrap " << _name << " is dead!" << std::endl;
   } else if (_energyPoints <= 0) {
-    std::cout << "ScavTrap" << _Name << " has no energy to attack!"
+    std::cout << "ScavTrap" << _name << " has no energy to attack!"
               << std::endl;
   } else {
-    std::cout << "ScavTrap " << _Name << " attacks " << target << ", causing "
+    std::cout << "ScavTrap " << _name << " attacks " << target << ", causing "
               << _attackDamage << " points of damage!" << std::endl;
     _energyPoints--;
   }
 }
+
 void ScavTrap::guardGate() {
-  std::cout << "ScavTrap " << _Name << " has entered in Gate keeper mode"
+  std::cout << "ScavTrap " << _name << " has entered in Gate keeper mode"
             << std::endl;
 }

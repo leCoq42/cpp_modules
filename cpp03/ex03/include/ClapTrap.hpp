@@ -11,7 +11,7 @@ public:
   ClapTrap &operator=(const ClapTrap &src);
   ~ClapTrap();
 
-  virtual void attack(const std::string &target);
+  void attack(const std::string &target);
   void takeDamage(unsigned int amount);
   void beRepaired(unsigned int amount);
 
@@ -21,7 +21,7 @@ public:
   int getDamage() const;
 
 protected:
-  std::string _Name;
+  std::string _name;
   int _hitPoints;
   int _energyPoints;
   int _attackDamage;

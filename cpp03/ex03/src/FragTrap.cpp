@@ -22,12 +22,12 @@ FragTrap::~FragTrap() {
 
 void FragTrap::attack(const std::string &target) {
   if (_hitPoints <= 0) {
-    std::cout << "FragTrap " << _Name << " is dead!" << std::endl;
+    std::cout << "FragTrap " << _name << " is dead!" << std::endl;
   } else if (_energyPoints <= 0) {
-    std::cout << "FragTrap" << _Name << " has no energy to attack!"
+    std::cout << "FragTrap" << _name << " has no energy to attack!"
               << std::endl;
   } else {
-    std::cout << "FragTrap " << _Name << " attacks " << target << ", causing "
+    std::cout << "FragTrap " << _name << " attacks " << target << ", causing "
               << _attackDamage << " points of damage!" << std::endl;
     _energyPoints--;
   }
