@@ -9,6 +9,7 @@ int main(void) {
   ScavTrap scav1;
   FragTrap frag1;
   DiamondTrap diamond1;
+  std::cout << std::endl;
 
   // Test named constructors
   ClapTrap clap2("Clap2");
