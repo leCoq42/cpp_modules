@@ -23,8 +23,8 @@ int main(void) {
   // test wrong anial/cat classes
   const WrongAnimal *wa = new WrongAnimal();
   const WrongAnimal *wc = new WrongCat();
-  std::cout << wa->getType() << " " << std::endl;
-  std::cout << wc->getType() << " " << std::endl;
+  std::cout << "wa type: " << wa->getType() << std::endl;
+  std::cout << "wc type: " << wc->getType() << std::endl;
   wa->makeSound();
   wc->makeSound(); // will output the wrongAnimal sound!
 
