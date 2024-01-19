@@ -1,6 +1,6 @@
 #include "Animal.hpp"
 
-Animal::Animal() {
+Animal::Animal() : _type("Animal") {
   std::cout << "Animal default constructor called" << std::endl;
 }
 
@@ -26,5 +26,5 @@ Animal &Animal::operator=(const Animal &src) {
 std::string Animal::getType() const { return _type; }
 
 void Animal::makeSound() const {
-  std::cout << "An unindentifiable Animal sound!" << std::endl;
+  std::cout << "An unidentifiable Animal sound!" << std::endl;
 }

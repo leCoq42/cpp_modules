@@ -15,7 +15,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp Animal.cpp Cat.cpp Dog.cpp
+SRC		:= main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 
