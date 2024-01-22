@@ -1,0 +1,104 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/AMateria.cpp",
+   "-o",
+   "obj/AMateria.o"
+  ],
+  "file": "src/AMateria.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Character.cpp",
+   "-o",
+   "obj/Character.o"
+  ],
+  "file": "src/Character.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Cure.cpp",
+   "-o",
+   "obj/Cure.o"
+  ],
+  "file": "src/Cure.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Ice.cpp",
+   "-o",
+   "obj/Ice.o"
+  ],
+  "file": "src/Ice.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp04/ex03",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/MateriaSource.cpp",
+   "-o",
+   "obj/MateriaSource.o"
+  ],
+  "file": "src/MateriaSource.cpp"
+ }
+]
