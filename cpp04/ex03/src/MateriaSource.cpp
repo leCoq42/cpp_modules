@@ -50,6 +50,7 @@ void MateriaSource::learnMateria(AMateria *m) {
   for (int i = 0; i < MATERIA_SLOTS; i++) {
     if (i == MATERIA_SLOTS - 1 && _materias[i] != nullptr) {
       std::cout << "MateriaSource: Cannot learn more materias." << std::endl;
+      delete m;
       break;
     } else if (_materias[i] == nullptr) {
       _materias[i] = m;

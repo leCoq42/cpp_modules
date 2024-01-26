@@ -13,6 +13,7 @@ public:
   Character(std::string const &name);
 
   std::string const &getName() const;
+  AMateria *getMateria(int idx) const;
   Character(Character const &src);
   Character &operator=(const Character &rhs);
 

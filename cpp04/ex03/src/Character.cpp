@@ -60,6 +60,7 @@ void Character::equip(AMateria *m) {
   for (int i = 0; i < INVENTORY_SIZE; i++) {
     if (i == INVENTORY_SIZE - 1 && _inventory[i] != nullptr) {
       std::cout << "Character: Inventory full!" << std::endl;
+      delete m;
       break;
     } else if (_inventory[i] == nullptr) {
       _inventory[i] = m;
@@ -67,6 +68,14 @@ void Character::equip(AMateria *m) {
       break;
     }
   }
+}
+
+AMateria *Character::getMateria(int idx) const {
+  if (idx < 0 || idx >= INVENTORY_SIZE) {
+    std::cout << "Character: Cannot get materia, invalid index!" << std::endl;
+    return nullptr;
+  }
+  return _inventory[idx];
 }
 
 void Character::unequip(int idx) {

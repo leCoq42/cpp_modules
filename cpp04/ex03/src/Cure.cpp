@@ -8,7 +8,7 @@ Cure::Cure() : AMateria("cure") {
 }
 
 Cure::~Cure() {
-#ifndef DEBUG
+#ifdef DEBUG
   std::cout << "Cure destructor called." << std::endl;
 #endif
 }
