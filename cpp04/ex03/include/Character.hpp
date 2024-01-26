@@ -4,6 +4,8 @@
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 
+#define INVENTORY_SIZE 4
+
 class Character : public ICharacter {
 public:
   Character();
@@ -19,9 +21,8 @@ public:
   void use(int idx, ICharacter &target);
 
 private:
-  AMateria *_inventory[4];
+  AMateria *_inventory[INVENTORY_SIZE];
   std::string _name;
-  int _freeSlots;
 };
 
 #endif

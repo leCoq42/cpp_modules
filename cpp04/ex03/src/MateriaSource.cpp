@@ -6,8 +6,18 @@ MateriaSource::MateriaSource() {
   std::cout << "MateriaSource default constructor called." << std::endl;
 #endif
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < MATERIA_SLOTS; i++) {
     _materias[i] = nullptr;
+  }
+}
+
+MateriaSource::~MateriaSource() {
+#ifdef DEBUG
+  std::cout << "MateriaSource destructor called." << std::endl;
+#endif
+  for (int i = 0; i < MATERIA_SLOTS; i++) {
+    if (_materias[i] != nullptr)
+      delete _materias[i];
   }
 }
 
@@ -25,7 +35,7 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &rhs) {
 #endif
 
   if (this != &rhs) {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < MATERIA_SLOTS; i++) {
       _materias[i] = rhs._materias[i];
     }
   }
@@ -34,11 +44,16 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &rhs) {
 
 void MateriaSource::learnMateria(AMateria *m) {
   if (m == nullptr) {
+    std::cout << "MateriaSource: Cannot learn a null materia." << std::endl;
     return;
   }
-  for (int i = 0; i < 4; i++) {
-    if (_materias[i] == nullptr) {
+  for (int i = 0; i < MATERIA_SLOTS; i++) {
+    if (i == MATERIA_SLOTS - 1 && _materias[i] != nullptr) {
+      std::cout << "MateriaSource: Cannot learn more materias." << std::endl;
+      break;
+    } else if (_materias[i] == nullptr) {
       _materias[i] = m;
+      std::cout << "Learned Materia " << m->getType() << "." << std::endl;
       break;
     }
   }
@@ -47,11 +62,20 @@ void MateriaSource::learnMateria(AMateria *m) {
 AMateria *MateriaSource::createMateria(std::string const &type) {
   int i;
 
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < MATERIA_SLOTS; i++) {
+    if (i == MATERIA_SLOTS - 1 && _materias[i] != nullptr)
+      return (nullptr);
     if (_materias[i] != nullptr && _materias[i]->getType() == type)
       break;
   }
-  if (i == 4)
-    return (nullptr);
   return (_materias[i]->clone());
+}
+
+void MateriaSource::printMaterias() {
+  for (int i = 0; i < MATERIA_SLOTS; i++) {
+    if (_materias[i] != nullptr) {
+      std::cout << "Materia " << i << ": " << _materias[i]->getType()
+                << std::endl;
+    }
+  }
 }

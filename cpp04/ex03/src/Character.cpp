@@ -4,7 +4,16 @@ Character::Character() : _name("default") {
 #ifdef DEBUG
   std::cout << "Character default constructor called." << std::endl;
 #endif
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < INVENTORY_SIZE; i++) {
+    _inventory[i] = nullptr;
+  }
+}
+
+Character::Character(std::string const &name) : _name(name) {
+#ifdef DEBUG
+  std::cout << "Character parameterized constructor called." << std::endl;
+#endif
+  for (int i = 0; i < INVENTORY_SIZE; i++) {
     _inventory[i] = nullptr;
   }
 }
@@ -13,14 +22,9 @@ Character::~Character() {
 #ifdef DEBUG
   std::cout << "Character destructor called." << std::endl;
 #endif
-}
-
-Character::Character(std::string const &name) : _name(name) {
-#ifdef DEBUG
-  std::cout << "Character parameterized constructor called." << std::endl;
-#endif
-  for (int i = 0; i < 4; i++) {
-    _inventory[i] = nullptr;
+  for (int i = 0; i < INVENTORY_SIZE; i++) {
+    if (_inventory[i] != nullptr)
+      delete _inventory[i];
   }
 }
 
@@ -39,7 +43,7 @@ Character &Character::operator=(const Character &rhs) {
 
   if (this != &rhs) {
     _name = rhs.getName();
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < INVENTORY_SIZE; i++) {
       _inventory[i] = rhs._inventory[i];
     }
   }
@@ -49,21 +53,38 @@ Character &Character::operator=(const Character &rhs) {
 std::string const &Character::getName() const { return _name; }
 
 void Character::equip(AMateria *m) {
-  if (_freeSlots == 0 || m == nullptr) {
+  if (m == nullptr) {
+    std::cout << "Character: Cannot equip a void Materia." << std::endl;
     return;
   }
-  for (int i = 0; i < 4; i++) {
-    if (_inventory[i] == nullptr) {
+  for (int i = 0; i < INVENTORY_SIZE; i++) {
+    if (i == INVENTORY_SIZE - 1 && _inventory[i] != nullptr) {
+      std::cout << "Character: Inventory full!" << std::endl;
+      break;
+    } else if (_inventory[i] == nullptr) {
       _inventory[i] = m;
+      std::cout << "Equipped Materia: " << m->getType() << std::endl;
       break;
     }
   }
 }
 
-void Character::unequip(int idx) { _inventory[idx] = nullptr; }
+void Character::unequip(int idx) {
+  if (idx < 0 || idx > INVENTORY_SIZE - 1) {
+    std::cout << "Character: Cannot unequip, invalid index!" << std::endl;
+    return;
+  }
+  _inventory[idx] = nullptr;
+}
 
 void Character::use(int idx, ICharacter &target) {
-  if (_inventory[idx] != nullptr) {
-    _inventory[idx]->use(target);
+  if (idx < 0 || idx > INVENTORY_SIZE - 1) {
+    std::cout << "Character: invalid index!" << std::endl;
+    return;
   }
+  if (_inventory[idx] != nullptr)
+    _inventory[idx]->use(target);
+  else
+    std::cout << "Character: No materia equipped at index " << idx << "."
+              << std::endl;
 }
