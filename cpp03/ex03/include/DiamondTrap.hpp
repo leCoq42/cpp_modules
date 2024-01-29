@@ -16,9 +16,6 @@ public:
 
 private:
   std::string _name;
-  /* using FragTrap::_attackDamage; // 30 */
-  /* using FragTrap::_hitPoints;    // 100 */
-  /* using ScavTrap::_energyPoints; // 50 */
 };
 
 #endif

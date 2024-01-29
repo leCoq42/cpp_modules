@@ -45,4 +45,4 @@ $(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 ## Phony ##
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug rebug
