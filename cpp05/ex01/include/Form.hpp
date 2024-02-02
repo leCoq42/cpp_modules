@@ -31,6 +31,11 @@ public:
     const char *what() const throw() { return ("Grade is too low!"); };
   };
 
+  class AlreadySignedException : public std::exception {
+  public:
+    const char *what() const throw() { return ("Form is already signed!"); };
+  };
+
 private:
   const std::string _name;
   bool _signed;

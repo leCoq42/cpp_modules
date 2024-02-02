@@ -22,6 +22,7 @@ int main(void) {
   std::cout << "Form status: " << f1->getSigned() << std::endl;
   b1->SignForm(*f1);
   std::cout << "Form status: " << f1->getSigned() << std::endl;
+  b1->SignForm(*f1);
 
   delete b1;
   delete b2;
