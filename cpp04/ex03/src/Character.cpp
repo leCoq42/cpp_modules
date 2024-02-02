@@ -1,6 +1,6 @@
 #include "Character.hpp"
 
-Character::Character() : _name("default") {
+Character::Character() : _name("nameless") {
 #ifdef DEBUG
   std::cout << "Character default constructor called." << std::endl;
 #endif

@@ -9,17 +9,17 @@ Brain::~Brain() { std::cout << "Brain destructor called" << std::endl; }
 Brain::Brain(const Brain &src) {
   std::cout << "Brain copy constructor called!" << std::endl;
 
-  std::copy(src._ideas, src._ideas + 100, _ideas);
+  std::copy(src._ideas, src._ideas + src._max_ideas, _ideas);
   _ideaCount = src._ideaCount;
   *this = src;
 }
 
-Brain &Brain::operator=(const Brain &src) {
+Brain &Brain::operator=(const Brain &rhs) {
   std::cout << "Brain assignment operator called!" << std::endl;
 
-  if (this != &src) {
-    std::copy(src._ideas, src._ideas + 100, _ideas);
-    _ideaCount = src._ideaCount;
+  if (this != &rhs) {
+    _ideaCount = rhs._ideaCount;
+    std::copy(rhs._ideas, rhs._ideas + rhs._max_ideas, _ideas);
   }
   return *this;
 }
@@ -28,13 +28,13 @@ const std::string Brain::getIdea(int i) const {
   if (i < 0 || i >= _max_ideas)
     return ("This idea are not within the brain's capacity!\n");
   if (_ideas[i].empty())
-    return ("Whut!?\n");
+    return ("**Void**\n");
   return (_ideas[i]);
 }
 
 void Brain::setIdea(std::string idea) {
   if (_ideaCount >= _max_ideas)
-    std::cout << "The Brain is full with ideas!" << std::endl;
+    std::cout << "This Brain is full with ideas already.." << std::endl;
   else {
     _ideas[_ideaCount] = idea;
     _ideaCount++;

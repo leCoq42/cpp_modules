@@ -1,22 +1,25 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void) {
+  Bureaucrat *b1;
+  Bureaucrat *b2;
+  Form *f1;
+
   try {
-    Bureaucrat Bureacrats[4];
-    int numbers[4] = {1, 1, 150, 150};
-
-    for (size_t i = 0; i < 4; i++)
-      Bureacrats[i] = Bureaucrat("Henk" + std::to_string(i), numbers[i]);
-
-    /* Bureacrats[0].incrementGrade(); */
-    Bureacrats[1].decrementGrade();
-
-    // Bureacrats[2].decrementGrade();
-    Bureacrats[3].incrementGrade();
-
-    for (size_t i = 0; i < 4; i++)
-      std::cout << Bureacrats[i] << std::endl;
+    b1 = new Bureaucrat("Joe", 40);
+    b2 = new Bureaucrat("Kamala", 80);
+    f1 = new Form("Garbage License", 75, 50);
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
+
+  std::cout << *b1 << std::endl;
+  std::cout << *b2 << std::endl;
+  std::cout << *f1 << std::endl;
+
+  b2->SignForm(*f1);
+  std::cout << "Form status: " << f1->getSigned() << std::endl;
+  b1->SignForm(*f1);
+  std::cout << "Form status: " << f1->getSigned() << std::endl;
 }

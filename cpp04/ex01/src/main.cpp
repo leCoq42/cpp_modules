@@ -13,9 +13,9 @@ int main() {
 
   std::cout << std::endl << MSG_BORDER << std::endl << std::endl;
 
-  Animal *animals[10];
+  Animal *animals[4];
   for (int i = 0; i < 4; i++) {
-    if (i < 5) {
+    if (i < 2) {
       animals[i] = new Dog();
     } else {
       animals[i] = new Cat();
@@ -40,6 +40,8 @@ int main() {
   std::cout << "Cat idea count = " << cat->getIdeaCount() << std::endl;
   std::cout << "Clone idea count = " << clone->getIdeaCount() << std::endl;
   std::cout << "My idea new idea is: " << clone->getIdea(1) << std::endl;
+  cat->setIdea("I want to catch a bird!");
+  std::cout << "My idea new idea is: " << cat->getIdea(2) << std::endl;
 
   delete cat;
   delete clone;

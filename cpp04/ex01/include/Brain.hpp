@@ -15,7 +15,7 @@ public:
   int getIdeaCount() const;
 
 private:
-  static const int _max_ideas = 100;
+  static const int _max_ideas = 2;
   int _ideaCount;
   std::string _ideas[_max_ideas];
 };

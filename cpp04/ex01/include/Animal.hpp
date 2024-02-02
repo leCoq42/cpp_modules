@@ -6,7 +6,6 @@
 class Animal {
 public:
   Animal();
-  Animal(std::string type);
   virtual ~Animal();
 
   Animal(Animal const &src);

@@ -1,5 +1,11 @@
 #include "AMateria.hpp"
 
+AMateria::AMateria() : _type("undefined") {
+#ifdef DEBUG
+  std::cout << "AMateria default constructor called." << std::endl;
+#endif
+}
+
 AMateria::AMateria(std::string const &type) : _type(type) {
 #ifdef DEBUG
   std::cout << "AMateria parameterized constructor called." << std::endl;

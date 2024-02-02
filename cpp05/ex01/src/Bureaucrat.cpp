@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
 #ifdef DEBUG
@@ -6,7 +7,7 @@ Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
 #endif
 }
 
-Bureaucrat::Bureaucrat(const std::string &name, int &grade) : _name(name) {
+Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name) {
 #ifdef DEBUG
   std::cout << "Bureaucrat parameterized constructor called" << std::endl;
 #endif
@@ -36,6 +37,16 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs) {
     _grade = rhs._grade;
   }
   return *this;
+}
+
+void Bureaucrat::SignForm(Form &form) {
+  try {
+    form.beSigned(*this);
+    std::cout << _name << " signs " << form.getName() << std::endl;
+  } catch (Form::GradeTooLowException &e) {
+    std::cout << _name << " couldn’t sign " << form.getName()
+              << " because: " << e.what() << std::endl;
+  }
 }
 
 const std::string &Bureaucrat::getName() const { return _name; }
