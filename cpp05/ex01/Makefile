@@ -1,4 +1,4 @@
-NAME	:= materia
+NAME	:= bureaucrat
 
 ## General ##
 CC		:= g++
@@ -15,7 +15,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
+SRC		:= main.cpp Bureaucrat.cpp Form.cpp
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 

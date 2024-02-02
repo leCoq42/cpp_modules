@@ -17,8 +17,6 @@ public:
 
 protected:
   std::string _type;
-
-private:
 };
 
 #endif

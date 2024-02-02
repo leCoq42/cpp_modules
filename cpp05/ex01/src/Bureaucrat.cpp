@@ -6,7 +6,7 @@ Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
 #endif
 }
 
-Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name) {
+Bureaucrat::Bureaucrat(const std::string &name, int &grade) : _name(name) {
 #ifdef DEBUG
   std::cout << "Bureaucrat parameterized constructor called" << std::endl;
 #endif
