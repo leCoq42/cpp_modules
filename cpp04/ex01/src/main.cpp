@@ -30,21 +30,19 @@ int main() {
 
   std::cout << std::endl << MSG_BORDER << std::endl << std::endl;
 
-  Cat *cat = new Cat();
-  cat->setIdea("I am a cat!");
-  Cat *clone = new Cat(*cat);
-  std::cout << "My idea was: " << clone->getIdea(0) << std::endl;
-  std::cout << "Cat idea count = " << cat->getIdeaCount() << std::endl;
-  std::cout << "Clone idea count = " << clone->getIdeaCount() << std::endl;
-  cat->setIdea("I love fish!");
-  std::cout << "Cat idea count = " << cat->getIdeaCount() << std::endl;
-  std::cout << "Clone idea count = " << clone->getIdeaCount() << std::endl;
-  std::cout << "My idea new idea is: " << clone->getIdea(1) << std::endl;
-  cat->setIdea("I want to catch a bird!");
-  std::cout << "My idea new idea is: " << cat->getIdea(2) << std::endl;
-
-  delete cat;
-  delete clone;
+  Cat cat;
+  cat.setIdea("I am a cat!");
+  Cat clone = cat;
+  std::cout << "My idea was: " << clone.getIdea(0) << std::endl;
+  std::cout << "Cat idea count = " << cat.getIdeaCount() << std::endl;
+  std::cout << "Clone idea count = " << clone.getIdeaCount() << std::endl;
+  cat.setIdea("I love fish!");
+  std::cout << "Cat idea count = " << cat.getIdeaCount() << std::endl;
+  std::cout << "Clone idea count = " << clone.getIdeaCount() << std::endl;
+  std::cout << "My idea new idea is: " << clone.getIdea(1)
+            << std::endl; // this idea should be 'void'
+  cat.setIdea("I want to catch a bird!");
+  std::cout << "My idea new idea is: " << cat.getIdea(2) << std::endl;
 
   std::cout << std::endl << MSG_BORDER << std::endl << std::endl;
   return 0;

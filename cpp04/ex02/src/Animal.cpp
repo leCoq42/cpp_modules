@@ -24,7 +24,3 @@ A_Animal &A_Animal::operator=(const A_Animal &src) {
 }
 
 std::string A_Animal::getType() const { return _type; }
-
-void A_Animal::makeSound() const {
-  std::cout << "An unidentifiable Animal sound!" << std::endl;
-}

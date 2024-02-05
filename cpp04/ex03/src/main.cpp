@@ -5,46 +5,44 @@
 #include "MateriaSource.hpp"
 
 int main() {
-  IMateriaSource *src = new MateriaSource();
-  src->learnMateria(new Ice());
-  src->learnMateria(new Cure());
-  src->learnMateria(new Ice());
-  src->learnMateria(new Cure());
-  src->learnMateria(new Ice());
-  src->learnMateria(nullptr);
-  src->printMaterias();
+  MateriaSource src;
+  src.learnMateria(new Ice());
+  src.learnMateria(new Cure());
+  src.learnMateria(new Ice());
+  src.learnMateria(new Cure());
+  src.learnMateria(new Ice());
+  src.learnMateria(nullptr);
+  src.printMaterias();
 
-  ICharacter *me = new Character("me");
-  std::cout << "Character name = " << me->getName() << std::endl;
+  Character me;
+  std::cout << "Character name = " << me.getName() << std::endl;
 
   AMateria *tmp;
-  tmp = src->createMateria("ice");
+  tmp = src.createMateria("ice");
   std::cout << "Created Materia: " << tmp->getType() << std::endl;
-  me->equip(tmp);
-  tmp = src->createMateria("cure");
+  me.equip(tmp);
+  tmp = src.createMateria("cure");
   std::cout << "Created Materia: " << tmp->getType() << std::endl;
-  me->equip(tmp);
-  tmp = src->createMateria("ice");
+  me.equip(tmp);
+  tmp = src.createMateria("ice");
   std::cout << "Created Materia: " << tmp->getType() << std::endl;
-  me->equip(tmp);
-  tmp = src->createMateria("cure");
+  me.equip(tmp);
+  tmp = src.createMateria("cure");
   std::cout << "Created Materia: " << tmp->getType() << std::endl;
-  me->equip(tmp);
-  tmp = src->createMateria("ice");
+  me.equip(tmp);
+  tmp = src.createMateria("ice");
   std::cout << "Created Materia: " << tmp->getType() << std::endl;
-  me->equip(tmp);
+  me.equip(tmp);
 
-  AMateria *tmp2 = me->getMateria(1);
-  me->unequip(1);
+  AMateria *tmp2 = me.getMateria(1);
+  me.unequip(1);
+
+  Character bob;
+
+  me.use(0, bob);
+  me.use(3, bob);
+  me.use(1, bob);
+
   delete tmp2;
-
-  ICharacter *bob = new Character("bob");
-
-  me->use(0, *bob);
-  me->use(1, *bob);
-
-  delete bob;
-  delete me;
-  delete src;
   return 0;
 }
