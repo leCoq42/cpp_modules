@@ -24,7 +24,7 @@ Bureaucrat::~Bureaucrat() {
 #endif
 }
 
-Bureaucrat::Bureaucrat(Bureaucrat const &src) {
+Bureaucrat::Bureaucrat(Bureaucrat const &src) : _name(src.getName()) {
 #ifdef DEBUG
   std::cout << "Bureaucrat copy constructor called" << std::endl;
 #endif
@@ -39,6 +39,7 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs) {
 }
 
 const std::string &Bureaucrat::getName() const { return _name; }
+
 int Bureaucrat::getGrade() const { return _grade; }
 
 void Bureaucrat::incrementGrade() {
