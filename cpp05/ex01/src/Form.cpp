@@ -22,6 +22,23 @@ Form::~Form() {
 #endif
 }
 
+Form::Form(const Form &src) : _name(src.getName()) {
+#ifdef DEBUG
+  std::cout << "Form copy constructor called" << std::endl;
+#endif
+
+  *this = src;
+}
+
+Form &Form::operator=(const Form &rhs) {
+  if (this != &rhs) {
+    _signed = rhs.getSigned();
+    _gradeToSign = rhs.getGradeToSign();
+    _gradeToExecute = rhs.getGradeToExecute();
+  }
+  return *this;
+}
+
 void Form::beSigned(const Bureaucrat &bur) {
   if (_signed == true)
     throw Form::AlreadySignedException();
@@ -31,13 +48,12 @@ void Form::beSigned(const Bureaucrat &bur) {
 }
 
 const std::string &Form::getName() const { return _name; }
+
 int Form::getGradeToSign() const { return _gradeToSign; }
+
 int Form::getGradeToExecute() const { return _gradeToExecute; }
-const std::string Form::getSigned() const {
-  if (_signed)
-    return "signed";
-  return "unsigned";
-}
+
+bool Form::getSigned() const { return _signed; }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {
   std::cout << form.getName()

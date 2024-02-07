@@ -19,7 +19,7 @@ public:
   const std::string &getName() const;
   int getGradeToSign() const;
   int getGradeToExecute() const;
-  const std::string getSigned() const;
+  bool getSigned() const;
 
   class GradeTooHighException : public std::exception {
   public:

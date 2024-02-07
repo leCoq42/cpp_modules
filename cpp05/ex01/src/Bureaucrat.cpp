@@ -25,7 +25,7 @@ Bureaucrat::~Bureaucrat() {
 #endif
 }
 
-Bureaucrat::Bureaucrat(Bureaucrat const &src) {
+Bureaucrat::Bureaucrat(Bureaucrat const &src) : _name(src.getName()) {
 #ifdef DEBUG
   std::cout << "Bureaucrat copy constructor called" << std::endl;
 #endif
@@ -33,6 +33,9 @@ Bureaucrat::Bureaucrat(Bureaucrat const &src) {
 }
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs) {
+#ifdef DEBUG
+  std::cout << "Bureaucrat operator = overload called";
+#endif
   if (this != &rhs) {
     _grade = rhs._grade;
   }
@@ -68,6 +71,7 @@ void Bureaucrat::decrementGrade() {
 }
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bur) {
-  std::cout << bur.getName() << ", bureaucrat grade " << bur.getGrade();
+  std::cout << bur.getName() << ", bureaucrat grade " << bur.getGrade()
+            << std::endl;
   return out;
 }
