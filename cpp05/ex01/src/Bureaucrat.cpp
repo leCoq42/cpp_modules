@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {
+Bureaucrat::Bureaucrat() : _name("Bureaucrat"), _grade(150) {
 #ifdef DEBUG
   std::cout << "Bureaucrat default constructor called!" << std::endl;
 #endif
@@ -25,11 +25,11 @@ Bureaucrat::~Bureaucrat() {
 #endif
 }
 
-Bureaucrat::Bureaucrat(Bureaucrat const &src) : _name(src.getName()) {
+Bureaucrat::Bureaucrat(Bureaucrat const &src)
+    : _name(src.getName()), _grade(src.getGrade()) {
 #ifdef DEBUG
   std::cout << "Bureaucrat copy constructor called" << std::endl;
 #endif
-  *this = src;
 }
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs) {
@@ -56,6 +56,7 @@ void Bureaucrat::SignForm(Form &form) {
 }
 
 const std::string &Bureaucrat::getName() const { return _name; }
+
 int Bureaucrat::getGrade() const { return _grade; }
 
 void Bureaucrat::incrementGrade() {

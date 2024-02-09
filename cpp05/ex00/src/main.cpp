@@ -8,10 +8,10 @@ int main(void) {
     for (size_t i = 0; i < 4; i++)
       Bureaucrats[i] = Bureaucrat("Henk" + std::to_string(i), numbers[i]);
 
-    /* Bureacrats[0].incrementGrade(); */
+    /* Bureaucrats[0].incrementGrade(); */
     Bureaucrats[1].decrementGrade();
 
-    // Bureacrats[2].decrementGrade();
+    /* Bureaucrats[2].decrementGrade(); */
     Bureaucrats[3].incrementGrade();
 
     for (size_t i = 0; i < 4; i++)
