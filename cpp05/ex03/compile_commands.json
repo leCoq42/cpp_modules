@@ -1,0 +1,189 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex00",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Bureaucrat.cpp",
+   "-o",
+   "obj/Bureaucrat.o"
+  ],
+  "file": "src/Bureaucrat.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Bureaucrat.cpp",
+   "-o",
+   "obj/Bureaucrat.o"
+  ],
+  "file": "src/Bureaucrat.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex01",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Form.cpp",
+   "-o",
+   "obj/Form.o"
+  ],
+  "file": "src/Form.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/Bureaucrat.cpp",
+   "-o",
+   "obj/Bureaucrat.o"
+  ],
+  "file": "src/Bureaucrat.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/AForm.cpp",
+   "-o",
+   "obj/AForm.o"
+  ],
+  "file": "src/AForm.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/ShrubberyCreationForm.cpp",
+   "-o",
+   "obj/ShrubberyCreationForm.o"
+  ],
+  "file": "src/ShrubberyCreationForm.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/RobotomyRequestForm.cpp",
+   "-o",
+   "obj/RobotomyRequestForm.o"
+  ],
+  "file": "src/RobotomyRequestForm.cpp"
+ },
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp05/ex02",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++17",
+   "-I",
+   "include",
+   "-c",
+   "src/PresidentialPardonForm.cpp",
+   "-o",
+   "obj/PresidentialPardonForm.o"
+  ],
+  "file": "src/PresidentialPardonForm.cpp"
+ }
+]
