@@ -2,11 +2,11 @@
 #define SHRUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
-#include <fstream>
 
 class ShrubberyCreationForm : public AForm {
 public:
   ShrubberyCreationForm();
+  ShrubberyCreationForm(std::string const target);
   ShrubberyCreationForm(const std::string &name, int gradeToSign,
                         int gradeToExecute);
   ~ShrubberyCreationForm();

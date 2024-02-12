@@ -6,8 +6,9 @@
 class RobotomyRequestForm : public AForm {
 public:
   RobotomyRequestForm();
+  RobotomyRequestForm(std::string const &target);
   RobotomyRequestForm(const std::string &name, int gradeToSign,
-                      int gradeToExecute);
+                      int gradeToExecute, const std::string &target);
   ~RobotomyRequestForm();
 
   RobotomyRequestForm(const RobotomyRequestForm &src);

@@ -3,8 +3,14 @@
 #include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm()
-    : AForm("ShrubberyCreationForm", 145, 137) {
+    : AForm("ShrubberyCreationForm", 145, 137, "no target") {
   std::cout << "ShrubberyCreationForm default constructor called" << std::endl;
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const target)
+    : AForm("ShrubberyCreationForm", 145, 137, target) {
+  std::cout << "ShrubberyCreationForm parameterized constructor called"
+            << std::endl;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
@@ -12,7 +18,8 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src)
-    : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute()) {
+    : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute(),
+            src.getTarget()) {
   std::cout << "ShrubberyCreationForm copy constructor called" << std::endl;
 }
 
@@ -25,13 +32,10 @@ ShrubberyCreationForm::operator=(const ShrubberyCreationForm &rhs) {
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
-  if (executor.getGrade() > getGradeToExecute())
-    throw AForm::GradeTooLowException();
-  if (getSigned() == false)
-    throw AForm::FormNotSignedException();
+  AForm::execute(executor);
 
   std::fstream file;
-  std::string filename = getName() + "_shrubbery";
+  std::string filename = getTarget() + "_shrubbery";
 
   file.open(filename.c_str(), std::ios_base::out);
   if (!file.is_open())

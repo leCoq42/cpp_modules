@@ -1,7 +1,12 @@
 #include "RobotomyRequestForm.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm()
-    : AForm("RobotomyRequestForm", 72, 45) {
+    : AForm("RobotomyRequestForm", 72, 45, "no target") {
+  std::cout << "RobotomyRequestForm default constructor called" << std::endl;
+}
+
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target)
+    : AForm("RobotomyRequestForm", 72, 45, target) {
   std::cout << "RobotomyRequestForm default constructor called" << std::endl;
 }
 
@@ -10,7 +15,8 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src)
-    : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute()) {
+    : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute(),
+            src.getTarget()) {
   std::cout << "RobotomyRequestForm copy constructor called" << std::endl;
 }
 
@@ -23,6 +29,5 @@ RobotomyRequestForm::operator=(const RobotomyRequestForm &rhs) {
 }
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
-  std::cout << "test" << std::endl;
-  (void)executor;
+  AForm::execute(executor);
 }

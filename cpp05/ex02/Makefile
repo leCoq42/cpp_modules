@@ -31,7 +31,7 @@ clean:
 fclean: clean
 	@$(RM) $(OBJ_DIR)
 	@$(RM) $(NAME)
-	$(RM) ShrubberyCreationForm_shrubbery
+	$(RM) *_shrubbery
 
 re: fclean all
 

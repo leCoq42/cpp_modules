@@ -8,9 +8,10 @@ AForm::AForm()
 #endif
 }
 
-AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute)
+AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute,
+             const std::string &target)
     : _name(name), _signed(false), _gradeToSign(gradeToSign),
-      _gradeToExecute(gradeToExecute) {
+      _gradeToExecute(gradeToExecute), _target(target) {
 #ifdef DEBUG
   std::cout << "Form parameterized constructor called" << std::endl;
 #endif
@@ -47,7 +48,16 @@ void AForm::beSigned(const Bureaucrat &bur) {
   _signed = true;
 }
 
+void AForm::execute(Bureaucrat const &executor) const {
+  if (executor.getGrade() > getGradeToExecute())
+    throw AForm::GradeTooLowException();
+  if (getSigned() == false)
+    throw AForm::FormNotSignedException();
+}
+
 const std::string &AForm::getName() const { return _name; }
+
+const std::string &AForm::getTarget() const { return _target; }
 
 int AForm::getGradeToSign() const { return _gradeToSign; }
 
