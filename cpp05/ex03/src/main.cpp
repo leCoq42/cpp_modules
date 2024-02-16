@@ -1,50 +1,48 @@
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 #define MSG_BORDER "*---------------------------------------------*"
 
-int main(void) {
-  Bureaucrat Joe("Sleepy Joe", 150);
-  Bureaucrat Brak("Barrack", 1);
+int main() {
+  Intern someRandomIntern;
+  Bureaucrat President("Sleepy Joe", 1);
+  AForm *rrf;
 
-  ShrubberyCreationForm f1("home");
-  std::cout << f1 << std::endl;
+  try {
+    rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+  } catch (std::exception &e) {
+    std::cerr << "Intern was unable to make form [" << e.what() << "].";
+  }
 
-  RobotomyRequestForm f2("home");
-  std::cout << f2 << std::endl;
-
-  PresidentialPardonForm f3("home");
-  std::cout << f3 << std::endl;
-
-  /* Joe.executeForm(f1); */
-  /* Joe.SignForm(f1); */
-  /* Joe.executeForm(f1); */
-  /**/
-  /* Joe.executeForm(f2); */
-  /* Joe.SignForm(f2); */
-  /* Joe.executeForm(f2); */
-  /**/
-  /* Joe.executeForm(f3); */
-  /* Joe.SignForm(f3); */
-  /* Joe.executeForm(f3); */
-
-  Brak.executeForm(f1);
-  Brak.SignForm(f1);
-  Brak.executeForm(f1);
-
+  President.SignForm(*rrf);
+  rrf->execute(President);
+  delete rrf;
   std::cout << MSG_BORDER << std::endl;
 
-  Brak.executeForm(f2);
-  Brak.SignForm(f2);
-  Brak.executeForm(f2);
+  try {
+    rrf = someRandomIntern.makeForm("shrubbery creation", "Bender");
+  } catch (std::exception &e) {
+    std::cerr << "Intern was unable to make form [" << e.what() << "].";
+  }
 
+  President.SignForm(*rrf);
+  rrf->execute(President);
+  delete rrf;
   std::cout << MSG_BORDER << std::endl;
 
-  Brak.executeForm(f3);
-  Brak.SignForm(f3);
-  Brak.executeForm(f3);
+  try {
+    rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
+  } catch (std::exception &e) {
+    std::cerr << "Intern was unable to make form [" << e.what() << "].";
+  }
 
+  President.SignForm(*rrf);
+  rrf->execute(President);
+  delete rrf;
   std::cout << MSG_BORDER << std::endl;
+
+  return (0);
 }

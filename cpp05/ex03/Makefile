@@ -1,4 +1,4 @@
-NAME	:= forms
+NAME	:= intern
 
 ## General ##
 CC		:= g++
@@ -15,7 +15,10 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRC		:= main.cpp Bureaucrat.cpp AForm.cpp \
+		   ShrubberyCreationForm.cpp RobotomyRequestForm.cpp \
+			PresidentialPardonForm.cpp Intern.cpp
+
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 
