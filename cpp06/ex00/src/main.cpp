@@ -6,6 +6,6 @@ int main(int argc, char **argv) {
     return 1;
   }
   ScalarConverter converter;
-  converter.convertChar(argv[1]);
+  converter.convert(argv[1]);
   return 0;
 }
