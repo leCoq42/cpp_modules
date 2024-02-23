@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <iostream>
 
-enum e_type { CHAR, INT, FLOAT, DOUBLE, IMPOSSIBLE };
+enum e_type { CHAR, INT, FLOAT, DOUBLE, IMPOSSIBLE, PSEUDOFLOAT, PSEUDODOUBLE };
 
 class ScalarConverter {
 public:

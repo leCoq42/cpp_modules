@@ -33,24 +33,27 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) {
 
 void ScalarConverter::convert(const std::string &src) {
   e_type type = detectType(src);
-  if (type != CHAR && type != IMPOSSIBLE) {
+  if (type != CHAR && type != IMPOSSIBLE && type != PSEUDOFLOAT &&
+      type != PSEUDODOUBLE)
     try {
       stoi(src);
     } catch (std::out_of_range &e) {
       std::cout << "Input value out of range!" << std::endl;
       return;
+    } catch (std::invalid_argument &e) {
+      printImpossible();
+      return;
     }
-  }
   printConversions(src, type);
 }
 
 e_type detectType(const std::string &input) {
   if (input == "nanf" || input == "inff" || input == "+inff" ||
       input == "-inff")
-    return (FLOAT);
+    return (PSEUDOFLOAT);
   else if (input == "nan" || input == "inf" || input == "+inf" ||
            input == "-inf")
-    return (DOUBLE);
+    return (PSEUDODOUBLE);
 
   if (input.length() == 1 && !isdigit(input[0]))
     return (CHAR);
@@ -107,8 +110,9 @@ void toChar(const std::string &src, e_type type) {
   if (type == CHAR) {
     std::cout << src << std::endl;
     return;
-  }
-  if (isprint(static_cast<char>(std::stoi(src))))
+  } else if (type == PSEUDOFLOAT || type == PSEUDODOUBLE)
+    std::cout << "impossible" << std::endl;
+  else if (isprint(static_cast<char>(std::stoi(src))))
     std::cout << static_cast<char>(std::stoi(src)) << std::endl;
   else
     std::cout << "Non displayable" << std::endl;
@@ -117,6 +121,8 @@ void toChar(const std::string &src, e_type type) {
 void toInt(const std::string &src, e_type type) {
   if (type == CHAR)
     std::cout << static_cast<int>(src[0]) << std::endl;
+  else if (type == PSEUDOFLOAT || type == PSEUDODOUBLE)
+    std::cout << "impossible" << std::endl;
   else
     std::cout << static_cast<int>(std::stoi(src)) << std::endl;
 }
@@ -126,6 +132,10 @@ void toFloat(const std::string &src, e_type type) {
 
   if (type == CHAR)
     std::cout << static_cast<float>(src[0]) << "f" << std::endl;
+  else if (type == PSEUDOFLOAT)
+    std::cout << src << std::endl;
+  else if (type == PSEUDODOUBLE)
+    std::cout << src << "f" << std::endl;
   else
     std::cout << static_cast<float>(std::stof(src)) << "f" << std::endl;
 }
@@ -135,6 +145,10 @@ void toDouble(const std::string &src, e_type type) {
 
   if (type == CHAR)
     std::cout << static_cast<double>(src[0]) << std::endl;
+  else if (type == PSEUDOFLOAT)
+    std::cout << src.substr(0, src.size() - 1) << std::endl;
+  else if (type == PSEUDODOUBLE)
+    std::cout << src << std::endl;
   else
     std::cout << static_cast<double>(std::stod(src)) << std::endl;
 }
