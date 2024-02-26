@@ -5,13 +5,13 @@
 #include <iostream>
 
 struct Data {
-  std::string title;
-  std::string content;
+  std::string _title;
+  std::string _content;
 };
 
 class Serializer {
 public:
-  Serializer();
+  Serializer(void);
   virtual ~Serializer() = 0;
   Serializer(const Serializer &src);
   Serializer &operator=(const Serializer &rhs);
