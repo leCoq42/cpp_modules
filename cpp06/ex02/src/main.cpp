@@ -3,8 +3,6 @@
 #include "Base.hpp"
 #include "C.hpp"
 
-#include <unistd.h>
-
 Base *generate(void);
 void identify(Base *p);
 void identify(Base &p);

@@ -5,8 +5,8 @@
 #include <iostream>
 
 struct Data {
-  std::string _title;
-  std::string _content;
+  std::string title;
+  std::string content;
 };
 
 class Serializer {
