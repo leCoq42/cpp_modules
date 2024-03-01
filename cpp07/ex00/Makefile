@@ -1,4 +1,4 @@
-NAME	:= identify
+NAME	:= a.out
 
 ## General ##
 CC		:= g++

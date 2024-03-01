@@ -1,10 +1,16 @@
-#ifndef WHATERVER_HPP
-#define WHATERVER_HPP
+#ifndef WHATEVER_HPP
+#define WHATEVER_HPP
 
-#include <iostream>o
+#include <iostream>
 
-class Whatever {
-public:
-};
+template <typename T> void swap(T &a, T &b) {
+  T tmp = a;
+  a = b;
+  b = tmp;
+}
 
-#endif // !DEBUG
+template <typename T> T min(T a, T b) { return a < b ? a : b; }
+
+template <typename T> T max(T a, T b) { return a > b ? a : b; }
+
+#endif
