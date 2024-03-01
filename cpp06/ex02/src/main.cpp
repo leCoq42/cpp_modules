@@ -19,20 +19,25 @@ int main(void) {
 }
 
 Base *generate(void) {
+  Base *base = nullptr;
+
   switch (rand() % 3) {
   case (0):
     std::cout << "A generated!" << std::endl;
-    return new A();
+    base = new A();
+    break;
   case (1):
     std::cout << "B generated!" << std::endl;
-    return new B();
+    base = new B();
+    break;
   case (2):
     std::cout << "C generated!" << std::endl;
-    return new C();
+    base = new C();
+    break;
   default:
-    std::cout << "NULL generated" << std::endl;
+    std::cout << "nullptr generated" << std::endl;
   }
-  return NULL;
+  return base;
 }
 
 void identify(Base *p) {
