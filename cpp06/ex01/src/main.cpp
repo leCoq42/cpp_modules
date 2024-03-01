@@ -3,8 +3,6 @@
 int main(void) {
   Data data = {"Hello", "World"};
   Data *data_ptr = &data;
-  /* Serializer serializer; */
-  /* (void)serializer; */
 
   std::cout << "Input data: \n Title: " << data.title
             << "\n Content: " << data.content << std::endl;

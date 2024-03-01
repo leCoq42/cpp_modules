@@ -128,8 +128,6 @@ void toInt(const std::string &src, e_type type) {
 }
 
 void toFloat(const std::string &src, e_type type) {
-  std::cout << std::fixed << std::showpoint << std::setprecision(1);
-
   if (type == CHAR)
     std::cout << static_cast<float>(src[0]) << "f" << std::endl;
   else if (type == PSEUDOFLOAT)
@@ -141,8 +139,6 @@ void toFloat(const std::string &src, e_type type) {
 }
 
 void toDouble(const std::string &src, e_type type) {
-  std::cout << std::fixed << std::showpoint << std::setprecision(1);
-
   if (type == CHAR)
     std::cout << static_cast<double>(src[0]) << std::endl;
   else if (type == PSEUDOFLOAT)
