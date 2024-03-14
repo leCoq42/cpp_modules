@@ -15,6 +15,10 @@ AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute,
 #ifdef DEBUG
   std::cout << "Form parameterized constructor called" << std::endl;
 #endif
+  if (gradeToSign < 1 || gradeToExecute < 1)
+    throw AForm::GradeTooHighException();
+  else if (gradeToSign > 150 || gradeToExecute > 150)
+    throw AForm::GradeTooLowException();
 }
 
 AForm::~AForm() {
@@ -69,6 +73,5 @@ std::ostream &operator<<(std::ostream &out, const AForm &form) {
   out << form.getName() << ", form. Grade to sign: " << form.getGradeToSign()
       << ". Grade to execute: " << form.getGradeToExecute()
       << ". Status: " << form.getSigned() << std::endl;
-
   return out;
 }
