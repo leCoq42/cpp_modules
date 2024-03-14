@@ -1,7 +1,7 @@
 NAME	:= form
 
 ## General ##
-CC		:= g++
+CC		:= c++
 RM		:= rm -rf
 CFLAGS	:= -Wall -Wextra -Werror -std=c++17
 

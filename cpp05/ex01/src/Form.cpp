@@ -43,7 +43,7 @@ void Form::beSigned(const Bureaucrat &bur) {
   if (_signed == true)
     throw Form::AlreadySignedException();
   if (bur.getGrade() > _gradeToSign)
-    throw Form::GradeTooLowException();
+    throw Form::GradeTooHighException();
   _signed = true;
 }
 
@@ -56,10 +56,9 @@ int Form::getGradeToExecute() const { return _gradeToExecute; }
 bool Form::getSigned() const { return _signed; }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {
-  std::cout << form.getName()
-            << ", form. Grade to sign: " << form.getGradeToSign()
-            << ". Grade to execute: " << form.getGradeToExecute()
-            << ". Status: " << form.getSigned() << std::endl;
+  out << form.getName() << ", form. Grade to sign: " << form.getGradeToSign()
+      << ". Grade to execute: " << form.getGradeToExecute()
+      << ". Status: " << form.getSigned() << std::endl;
 
   return out;
 }
