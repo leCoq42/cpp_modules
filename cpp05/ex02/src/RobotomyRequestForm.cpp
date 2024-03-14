@@ -2,22 +2,30 @@
 
 RobotomyRequestForm::RobotomyRequestForm()
     : AForm("RobotomyRequestForm", 72, 45, "no target") {
+#ifdef DEBUG
   std::cout << "RobotomyRequestForm default constructor called" << std::endl;
+#endif
 }
 
 RobotomyRequestForm::RobotomyRequestForm(std::string const &target)
     : AForm("RobotomyRequestForm", 72, 45, target) {
+#ifdef DEBUG
   std::cout << "RobotomyRequestForm default constructor called" << std::endl;
+#endif
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {
+#ifdef DEBUG
   std::cout << "RobotomyRequestForm destructor called" << std::endl;
+#endif
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src)
     : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute(),
             src.getTarget()) {
+#ifdef DEBUG
   std::cout << "RobotomyRequestForm copy constructor called" << std::endl;
+#endif
 }
 
 RobotomyRequestForm &

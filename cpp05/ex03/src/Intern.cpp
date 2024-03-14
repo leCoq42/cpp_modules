@@ -43,5 +43,6 @@ AForm *Intern::makeForm(std::string const &formName,
   else if (formName == "presidential pardon")
     return new PresidentialPardonForm(target);
   else
-    return NULL;
+    throw Intern::UnkownFormTypeException();
+  return nullptr;
 }

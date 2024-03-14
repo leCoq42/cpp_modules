@@ -4,23 +4,31 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm()
     : AForm("ShrubberyCreationForm", 145, 137, "no target") {
+#ifdef DEBUG
   std::cout << "ShrubberyCreationForm default constructor called" << std::endl;
+#endif
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string const target)
     : AForm("ShrubberyCreationForm", 145, 137, target) {
+#ifdef DEBUG
   std::cout << "ShrubberyCreationForm parameterized constructor called"
             << std::endl;
+#endif
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
+#ifdef DEBUG
   std::cout << "ShrubberyCreationForm destructor called" << std::endl;
+#endif
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src)
     : AForm(src.getName(), src.getGradeToSign(), src.getGradeToExecute(),
             src.getTarget()) {
+#ifdef DEBUG
   std::cout << "ShrubberyCreationForm copy constructor called" << std::endl;
+#endif
 }
 
 ShrubberyCreationForm &

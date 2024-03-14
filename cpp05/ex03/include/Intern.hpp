@@ -13,6 +13,11 @@ public:
   Intern &operator=(Intern const &rhs);
 
   AForm *makeForm(std::string const &formName, std::string const &target);
+
+  class UnkownFormTypeException : public std::exception {
+  public:
+    const char *what() const throw() { return ("Unkown Form Type!"); };
+  };
 };
 
 #endif

@@ -66,10 +66,9 @@ int AForm::getGradeToExecute() const { return _gradeToExecute; }
 bool AForm::getSigned() const { return _signed; }
 
 std::ostream &operator<<(std::ostream &out, const AForm &form) {
-  std::cout << form.getName()
-            << ", form. Grade to sign: " << form.getGradeToSign()
-            << ". Grade to execute: " << form.getGradeToExecute()
-            << ". Status: " << form.getSigned() << std::endl;
+  out << form.getName() << ", form. Grade to sign: " << form.getGradeToSign()
+      << ". Grade to execute: " << form.getGradeToExecute()
+      << ". Status: " << form.getSigned() << std::endl;
 
   return out;
 }

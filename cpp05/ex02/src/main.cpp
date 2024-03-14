@@ -9,26 +9,33 @@ int main(void) {
   Bureaucrat Joe("Sleepy Joe", 150);
   Bureaucrat Brak("Barrack", 1);
 
-  ShrubberyCreationForm f1("home");
-  std::cout << f1 << std::endl;
+  ShrubberyCreationForm f1("home1");
+  RobotomyRequestForm f2("home2");
+  PresidentialPardonForm f3("home3");
 
-  RobotomyRequestForm f2("home");
-  std::cout << f2 << std::endl;
-
-  PresidentialPardonForm f3("home");
+  std::cout << f1;
+  std::cout << f2;
   std::cout << f3 << std::endl;
 
-  /* Joe.executeForm(f1); */
-  /* Joe.SignForm(f1); */
-  /* Joe.executeForm(f1); */
-  /**/
-  /* Joe.executeForm(f2); */
-  /* Joe.SignForm(f2); */
-  /* Joe.executeForm(f2); */
-  /**/
-  /* Joe.executeForm(f3); */
-  /* Joe.SignForm(f3); */
-  /* Joe.executeForm(f3); */
+  std::cout << MSG_BORDER << std::endl;
+
+  Joe.executeForm(f1);
+  Joe.SignForm(f1);
+  Joe.executeForm(f1);
+
+  std::cout << MSG_BORDER << std::endl;
+
+  Joe.executeForm(f2);
+  Joe.SignForm(f2);
+  Joe.executeForm(f2);
+
+  std::cout << MSG_BORDER << std::endl;
+
+  Joe.executeForm(f3);
+  Joe.SignForm(f3);
+  Joe.executeForm(f3);
+
+  std::cout << MSG_BORDER << std::endl;
 
   Brak.executeForm(f1);
   Brak.SignForm(f1);
@@ -47,4 +54,7 @@ int main(void) {
   Brak.executeForm(f3);
 
   std::cout << MSG_BORDER << std::endl;
+
+  ShrubberyCreationForm shrub = f1;
+  std::cout << shrub;
 }
