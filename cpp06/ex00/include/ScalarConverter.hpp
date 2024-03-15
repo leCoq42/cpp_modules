@@ -1,7 +1,6 @@
 #ifndef SCALAR_CONVERTER_HPP
 #define SCALAR_CONVERTER_HPP
 
-#include <iomanip>
 #include <iostream>
 
 enum e_type { CHAR, INT, FLOAT, DOUBLE, IMPOSSIBLE, PSEUDOFLOAT, PSEUDODOUBLE };
@@ -17,7 +16,7 @@ public:
 };
 
 e_type detectType(const std::string &input);
-int checkValidDigit(std::string input);
+bool checkValidDigit(std::string input);
 void printConversions(const std::string &src, e_type type);
 
 void toChar(const std::string &src, e_type type);

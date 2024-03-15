@@ -1,7 +1,6 @@
 #ifndef SERIALIZE_HPP
 #define SERIALIZE_HPP
 
-#include <cstdint>
 #include <iostream>
 
 struct Data {

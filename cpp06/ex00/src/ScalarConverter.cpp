@@ -1,6 +1,5 @@
 #include "ScalarConverter.hpp"
 #include <iomanip>
-#include <stdexcept>
 
 ScalarConverter::ScalarConverter() {
 #ifdef DEBUG
@@ -32,6 +31,7 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) {
 }
 
 void ScalarConverter::convert(const std::string &src) {
+  std::cout << std::fixed << std::setprecision(1);
   e_type type = detectType(src);
   if (type != CHAR && type != IMPOSSIBLE && type != PSEUDOFLOAT &&
       type != PSEUDODOUBLE)
@@ -65,27 +65,27 @@ e_type detectType(const std::string &input) {
   return (IMPOSSIBLE);
 }
 
-int checkValidDigit(std::string input) {
-  int neg = 0;
+bool checkValidDigit(std::string input) {
+  bool isNeg = false;
   int dec = 0;
   size_t i;
 
   if (input[0] == '-' && input.length() > 1)
-    neg = 1;
-  i = neg;
+    isNeg = true;
+  i = isNeg ? 1 : 0;
   for (; i < input.length(); i++) {
     if (input[i] == '.') {
       dec++;
       if (dec > 1)
-        return (0);
+        return (false);
       continue;
     }
     if (i == input.length() - 1 && input[i] == 'f')
-      return (1);
+      return (true);
     if (!isdigit(input[i]))
-      return (0);
+      return (false);
   }
-  return (1);
+  return (true);
 }
 
 void printConversions(const std::string &src, e_type type) {

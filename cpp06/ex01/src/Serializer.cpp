@@ -1,7 +1,6 @@
 #include "Serializer.hpp"
-#include <stdexcept>
 
-Serializer::Serializer(void) {
+Serializer::Serializer() {
   std::cout << "Serializer default constructor called." << std::endl;
 }
 
