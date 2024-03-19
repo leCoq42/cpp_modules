@@ -1,0 +1,19 @@
+[
+ {
+  "directory": "/home/mhaan/core/cpp_modules/cpp08/ex00",
+  "arguments": [
+   "c++",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-std=c++20",
+   "-I",
+   "include",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ }
+]
