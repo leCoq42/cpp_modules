@@ -2,9 +2,9 @@
 #define SPAN_HPP
 
 #include <algorithm>
+#include <ctime>
 #include <iostream>
 #include <limits>
-#include <type_traits>
 #include <vector>
 
 template <typename T> class Span {
@@ -18,7 +18,7 @@ public:
   ~Span();
 
   void addNumber(T n);
-  void addRange(T start, T end);
+  void addRange(const std::vector<T> &range);
   T shortestSpan();
   T longestSpan();
 
@@ -47,7 +47,6 @@ template <typename T> Span<T>::Span(unsigned int N) : _maxSize(N) {
 #ifdef DEBUG
   std::cout << "Span parameterized constructor called" << std::endl;
 #endif
-
   try {
     _Span.reserve(N);
   } catch (std::exception &e) {
@@ -84,11 +83,20 @@ template <typename T> Span<T> &Span<T>::operator=(const Span<T> &rhs) {
 }
 
 template <typename T> void Span<T>::addNumber(T n) {
-  if (_Span.size() < _maxSize) {
+  if (_Span.size() >= _maxSize)
+    throw SpanFullException();
+  try {
     _Span.push_back(n);
     std::sort(_Span.begin(), _Span.end());
-  } else
-    throw SpanFullException();
+  } catch (std::invalid_argument &e) {
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+template <typename T> void Span<T>::addRange(const std::vector<T> &range) {
+  for (const auto &i : range) {
+    addNumber(i);
+  }
 }
 
 template <typename T> T Span<T>::shortestSpan() {
@@ -112,13 +120,13 @@ template <typename T> T Span<T>::longestSpan() {
 }
 
 template <typename T>
-const char *Span<T>::SpanFullException::what() const throw() {
-  return "Span is full";
+const char *Span<T>::SpanFullException::what() const noexcept {
+  return "Span container is full";
 }
 
 template <typename T>
-const char *Span<T>::NoSpanException::what() const throw() {
-  return "No path available, Span should contain at least two numbers.";
+const char *Span<T>::NoSpanException::what() const noexcept {
+  return "No span available, span needs at least two numbers.";
 }
 
 #endif
