@@ -18,10 +18,10 @@ int main(void) {
   std::cout << std::endl;
 
   if (deserialized == data_ptr) {
-    std::cout << "Deserialized data is the same as the original data"
+    std::cout << "Deserialized data is the same as the original data!"
               << std::endl;
   } else
-    std::cout << "Deserialized data is not the same as the original data"
+    std::cout << "Deserialized data is not the same as the original data!"
               << std::endl;
 
   return 0;
