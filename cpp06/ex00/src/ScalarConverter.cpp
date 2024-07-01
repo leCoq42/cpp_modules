@@ -1,12 +1,6 @@
 #include "ScalarConverter.hpp"
 #include <iomanip>
 
-ScalarConverter::ScalarConverter() {
-#ifdef DEBUG
-  std::cout << "ScalarConverter default constructor called" << std::endl;
-#endif
-}
-
 ScalarConverter::ScalarConverter(const ScalarConverter &src) {
 #ifdef DEBUG
   std::cout << "ScalarConverter copy constructor called" << std::endl;
@@ -30,8 +24,9 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) {
   return *this;
 }
 
+// std::setprecision can be edited to customize the decimal precision.
 void ScalarConverter::convert(const std::string &src) {
-  std::cout << std::fixed << std::setprecision(1);
+  // std::cout << std::fixed << std::setprecision(1);
   e_type type = detectType(src);
   if (type != CHAR && type != IMPOSSIBLE && type != PSEUDOFLOAT &&
       type != PSEUDODOUBLE)
@@ -44,10 +39,10 @@ void ScalarConverter::convert(const std::string &src) {
       printImpossible();
       return;
     }
-  printConversions(src, type);
+	ScalarConverter::printConversions(src, type);
 }
 
-e_type detectType(const std::string &input) {
+e_type ScalarConverter::detectType(const std::string &input) {
   if (input == "nanf" || input == "inff" || input == "+inff" ||
       input == "-inff")
     return (PSEUDOFLOAT);
@@ -57,7 +52,7 @@ e_type detectType(const std::string &input) {
 
   if (input.length() == 1 && !isdigit(input[0]))
     return (CHAR);
-  if (checkValidDigit(input)) {
+  if (ScalarConverter::checkValidDigit(input)) {
     if (input.find('.') != std::string::npos)
       return ((input.back() == 'f') ? FLOAT : DOUBLE);
     return (INT);
@@ -65,7 +60,7 @@ e_type detectType(const std::string &input) {
   return (IMPOSSIBLE);
 }
 
-bool checkValidDigit(std::string input) {
+bool ScalarConverter::checkValidDigit(std::string input) {
   bool isNeg = false;
   int dec = 0;
   size_t i;
@@ -88,25 +83,25 @@ bool checkValidDigit(std::string input) {
   return (true);
 }
 
-void printConversions(const std::string &src, e_type type) {
+void ScalarConverter::printConversions(const std::string &src, e_type type) {
   if (type == IMPOSSIBLE)
-    printImpossible();
+    ScalarConverter::printImpossible();
   else {
     std::cout << "char: ";
-    toChar(src, type);
+	ScalarConverter::toChar(src, type);
 
     std::cout << "int: ";
-    toInt(src, type);
+	ScalarConverter::toInt(src, type);
 
     std::cout << "float: ";
-    toFloat(src, type);
+	ScalarConverter::toFloat(src, type);
 
     std::cout << "double: ";
-    toDouble(src, type);
+	ScalarConverter::toDouble(src, type);
   }
 }
 
-void toChar(const std::string &src, e_type type) {
+void ScalarConverter::toChar(const std::string &src, e_type type) {
   if (type == CHAR) {
     std::cout << src << std::endl;
     return;
@@ -118,7 +113,7 @@ void toChar(const std::string &src, e_type type) {
     std::cout << "Non displayable" << std::endl;
 }
 
-void toInt(const std::string &src, e_type type) {
+void ScalarConverter::toInt(const std::string &src, e_type type) {
   if (type == CHAR)
     std::cout << static_cast<int>(src[0]) << std::endl;
   else if (type == PSEUDOFLOAT || type == PSEUDODOUBLE)
@@ -127,7 +122,7 @@ void toInt(const std::string &src, e_type type) {
     std::cout << static_cast<int>(std::stoi(src)) << std::endl;
 }
 
-void toFloat(const std::string &src, e_type type) {
+void ScalarConverter::toFloat(const std::string &src, e_type type) {
   if (type == CHAR)
     std::cout << static_cast<float>(src[0]) << "f" << std::endl;
   else if (type == PSEUDOFLOAT)
@@ -138,7 +133,7 @@ void toFloat(const std::string &src, e_type type) {
     std::cout << static_cast<float>(std::stof(src)) << "f" << std::endl;
 }
 
-void toDouble(const std::string &src, e_type type) {
+void ScalarConverter::toDouble(const std::string &src, e_type type) {
   if (type == CHAR)
     std::cout << static_cast<double>(src[0]) << std::endl;
   else if (type == PSEUDOFLOAT)
@@ -149,7 +144,7 @@ void toDouble(const std::string &src, e_type type) {
     std::cout << static_cast<double>(std::stod(src)) << std::endl;
 }
 
-void printImpossible(void) {
+void ScalarConverter::printImpossible(void) {
   std::cout << "char: impossible" << std::endl;
   std::cout << "int: impossible" << std::endl;
   std::cout << "float: impossible" << std::endl;

@@ -1,8 +1,5 @@
 #include "Serializer.hpp"
 
-Serializer::Serializer() {
-  std::cout << "Serializer default constructor called." << std::endl;
-}
 
 Serializer::~Serializer() {
   std::cout << "Serializer destructor called." << std::endl;

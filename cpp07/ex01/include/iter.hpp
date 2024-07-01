@@ -3,12 +3,17 @@
 
 #include <iostream>
 
-template <typename T> void iter(T *array, size_t length, T (*func)(T)) {
+template <typename T>
+void iter(T *array, size_t length, void(*f)(T&)) {
   for (size_t i = 0; i < length; i++) {
-    array[i] = func(array[i]);
+    f(array[i]);
   }
-};
+}
 
-template <typename T> T power(T a) { return a * a; };
+template <typename T>
+void power(T &x) { x *= x; };
+
+template <typename T>
+void print(T &x) { std::cout << x << std::endl; }
 
 #endif

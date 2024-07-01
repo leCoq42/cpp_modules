@@ -6,24 +6,25 @@
 enum e_type { CHAR, INT, FLOAT, DOUBLE, IMPOSSIBLE, PSEUDOFLOAT, PSEUDODOUBLE };
 
 class ScalarConverter {
-public:
-  ScalarConverter();
-  ScalarConverter(const ScalarConverter &src);
-  ~ScalarConverter();
-  ScalarConverter &operator=(const ScalarConverter &src);
+	public:
+		ScalarConverter() = delete;
+		ScalarConverter(const ScalarConverter &src);
+		~ScalarConverter();
+		ScalarConverter &operator=(const ScalarConverter &src);
 
-  static void convert(const std::string &src);
+		static void convert(const std::string &src);
+
+	private:
+		static e_type detectType(const std::string &input);
+		static bool checkValidDigit(std::string input);
+		static void printConversions(const std::string &src, e_type type);
+
+		static void toChar(const std::string &src, e_type type);
+		static void toInt(const std::string &src, e_type type);
+		static void toFloat(const std::string &src, e_type type);
+		static void toDouble(const std::string &src, e_type type);
+
+		static void printImpossible(void);
 };
-
-e_type detectType(const std::string &input);
-bool checkValidDigit(std::string input);
-void printConversions(const std::string &src, e_type type);
-
-void toChar(const std::string &src, e_type type);
-void toInt(const std::string &src, e_type type);
-void toFloat(const std::string &src, e_type type);
-void toDouble(const std::string &src, e_type type);
-
-void printImpossible(void);
 
 #endif
