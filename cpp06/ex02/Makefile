@@ -15,7 +15,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp 
+SRC		:= main.cpp Base.cpp
 
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))

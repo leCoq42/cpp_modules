@@ -7,7 +7,6 @@ enum e_type { CHAR, INT, FLOAT, DOUBLE, IMPOSSIBLE, PSEUDOFLOAT, PSEUDODOUBLE };
 
 class ScalarConverter {
 	public:
-		ScalarConverter() = delete;
 		ScalarConverter(const ScalarConverter &src);
 		~ScalarConverter();
 		ScalarConverter &operator=(const ScalarConverter &src);
@@ -15,6 +14,7 @@ class ScalarConverter {
 		static void convert(const std::string &src);
 
 	private:
+		ScalarConverter();
 		static e_type detectType(const std::string &input);
 		static bool checkValidDigit(std::string input);
 		static void printConversions(const std::string &src, e_type type);

@@ -1,5 +1,7 @@
 #include "ScalarConverter.hpp"
+#include <cctype>
 #include <iomanip>
+#include <string>
 
 ScalarConverter::ScalarConverter(const ScalarConverter &src) {
 #ifdef DEBUG
@@ -24,12 +26,14 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src) {
   return *this;
 }
 
-// std::setprecision can be edited to customize the decimal precision.
 void ScalarConverter::convert(const std::string &src) {
-  // std::cout << std::fixed << std::setprecision(1);
   e_type type = detectType(src);
+
+  if (type == INT || type == CHAR)
+    std::cout << std::fixed << std::setprecision(1);
+
   if (type != CHAR && type != IMPOSSIBLE && type != PSEUDOFLOAT &&
-      type != PSEUDODOUBLE)
+      type != PSEUDODOUBLE) {
     try {
       stoi(src);
     } catch (std::out_of_range &e) {
@@ -39,7 +43,8 @@ void ScalarConverter::convert(const std::string &src) {
       printImpossible();
       return;
     }
-	ScalarConverter::printConversions(src, type);
+  }
+  ScalarConverter::printConversions(src, type);
 }
 
 e_type ScalarConverter::detectType(const std::string &input) {
@@ -88,27 +93,48 @@ void ScalarConverter::printConversions(const std::string &src, e_type type) {
     ScalarConverter::printImpossible();
   else {
     std::cout << "char: ";
-	ScalarConverter::toChar(src, type);
+    ScalarConverter::toChar(src, type);
 
     std::cout << "int: ";
-	ScalarConverter::toInt(src, type);
+    ScalarConverter::toInt(src, type);
 
     std::cout << "float: ";
-	ScalarConverter::toFloat(src, type);
+    ScalarConverter::toFloat(src, type);
 
     std::cout << "double: ";
-	ScalarConverter::toDouble(src, type);
+    ScalarConverter::toDouble(src, type);
   }
 }
 
 void ScalarConverter::toChar(const std::string &src, e_type type) {
-  if (type == CHAR) {
-    std::cout << src << std::endl;
+  int c;
+
+  if (type == PSEUDOFLOAT || type == PSEUDODOUBLE) {
+    std::cout << "Impossible" << std::endl;
     return;
-  } else if (type == PSEUDOFLOAT || type == PSEUDODOUBLE)
-    std::cout << "impossible" << std::endl;
-  else if (isprint(static_cast<char>(std::stoi(src))))
-    std::cout << static_cast<char>(std::stoi(src)) << std::endl;
+  }
+
+  if (src.length() == 1 && type == CHAR)
+    c = src[0];
+  else {
+    try {
+      c = std::stoi(src);
+    } catch (const std::invalid_argument &) {
+      std::cout << "Impossible" << std::endl;
+      return;
+    } catch (const std::out_of_range &) {
+      std::cout << "Out of range" << std::endl;
+      return;
+    }
+  }
+
+  if (c < 0 || c > 127) {
+    std::cout << "Out of range" << std::endl;
+    return;
+  }
+
+  if (isprint(static_cast<char>(c)))
+    std::cout << "'" << static_cast<char>(c) << "'" << std::endl;
   else
     std::cout << "Non displayable" << std::endl;
 }
@@ -117,9 +143,11 @@ void ScalarConverter::toInt(const std::string &src, e_type type) {
   if (type == CHAR)
     std::cout << static_cast<int>(src[0]) << std::endl;
   else if (type == PSEUDOFLOAT || type == PSEUDODOUBLE)
-    std::cout << "impossible" << std::endl;
-  else
-    std::cout << static_cast<int>(std::stoi(src)) << std::endl;
+    std::cout << "Impossible" << std::endl;
+  else {
+    double x = std::stod(src);
+    std::cout << static_cast<int>(x) << std::endl;
+  }
 }
 
 void ScalarConverter::toFloat(const std::string &src, e_type type) {
@@ -129,8 +157,10 @@ void ScalarConverter::toFloat(const std::string &src, e_type type) {
     std::cout << src << std::endl;
   else if (type == PSEUDODOUBLE)
     std::cout << src << "f" << std::endl;
-  else
-    std::cout << static_cast<float>(std::stof(src)) << "f" << std::endl;
+  else {
+    double x = std::stod(src);
+    std::cout << static_cast<float>(x) << "f" << std::endl;
+  }
 }
 
 void ScalarConverter::toDouble(const std::string &src, e_type type) {
@@ -140,13 +170,15 @@ void ScalarConverter::toDouble(const std::string &src, e_type type) {
     std::cout << src.substr(0, src.size() - 1) << std::endl;
   else if (type == PSEUDODOUBLE)
     std::cout << src << std::endl;
-  else
-    std::cout << static_cast<double>(std::stod(src)) << std::endl;
+  else {
+    double x = std::stod(src);
+    std::cout << static_cast<double>(x) << std::endl;
+  }
 }
 
 void ScalarConverter::printImpossible(void) {
-  std::cout << "char: impossible" << std::endl;
-  std::cout << "int: impossible" << std::endl;
-  std::cout << "float: impossible" << std::endl;
-  std::cout << "double: impossible" << std::endl;
+  std::cout << "char: Impossible" << std::endl;
+  std::cout << "int: Impossible" << std::endl;
+  std::cout << "float: Impossible" << std::endl;
+  std::cout << "double: Impossible" << std::endl;
 }

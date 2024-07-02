@@ -2,6 +2,7 @@
 #include "B.hpp"
 #include "Base.hpp"
 #include "C.hpp"
+#include <exception>
 
 Base *generate(void);
 void identify(Base *p);
@@ -16,6 +17,9 @@ int main(void) {
     delete base;
     std::cout << std::endl;
   }
+  Base test;
+  std::cout << "Test base created! *This one should not be identified.*" << std::endl;
+  identify(test);
 }
 
 Base *generate(void) {
@@ -48,18 +52,31 @@ void identify(Base *p) {
   } else if (dynamic_cast<C *>(p)) {
     std::cout << "Input identified as C." << std::endl;
   } else {
-    std::cout << "Unknown input type." << std::endl;
+    std::cout << "Input could not be identified." << std::endl;
   }
 }
 
 void identify(Base &p) {
-  if (dynamic_cast<A *>(&p)) {
+  try {
+    A &tmp = dynamic_cast<A &>(p);
+    (void)tmp;
     std::cout << "Input identified as A." << std::endl;
-  } else if (dynamic_cast<B *>(&p)) {
-    std::cout << "Input identified as B." << std::endl;
-  } else if (dynamic_cast<C *>(&p)) {
-    std::cout << "Input identified as C." << std::endl;
-  } else {
-    std::cout << "Unknown input type." << std::endl;
+    return;
+  } catch (std::exception &e) {
   }
+  try {
+    B &tmp = dynamic_cast<B &>(p);
+    (void)tmp;
+    std::cout << "Input identified as B." << std::endl;
+    return;
+  } catch (std::exception &e) {
+  }
+  try {
+    C &tmp = dynamic_cast<C &>(p);
+    (void)tmp;
+    std::cout << "Input identified as C." << std::endl;
+    return;
+  } catch (std::exception &e) {
+  }
+  std::cout << "Input could not be identified." << std::endl;
 }
