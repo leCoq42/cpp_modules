@@ -1,4 +1,5 @@
 #include "iter.hpp"
+#include <iostream>
 
 int main(void) {
 	size_t arr_len = 6;
@@ -8,12 +9,11 @@ int main(void) {
 		arr[i] = i + 1;
 	}
 	std::cout << "Before: " << std::endl;
-	iter(arr, arr_len, print);
-	iter(arr, arr_len, power);
+	iter(arr, arr_len, std::function<void(int&)>(print<int>));
+	iter(arr, arr_len, std::function<void(int&)>(power<int>));
 	std::cout << std::endl;
-
 	std::cout << "After: " << std::endl;
-	iter(arr, arr_len, print<int>);
+	iter(arr, arr_len, std::function<void(int&)>(print<int>));
 	std::cout << std::endl;
 
 	float farr[6];
@@ -21,17 +21,15 @@ int main(void) {
     	farr[i] = i + 1.1f;
 	}
 	std::cout << "Before: " << std::endl;
-	iter(farr, arr_len, print);
+	iter(farr, arr_len, std::function<void(float&)>(print<float>));
 	std::cout << std::endl;
-	iter(farr, arr_len, power);
+	iter(farr, arr_len, std::function<void(float&)>(power<float>));
 	std::cout << "After: " << std::endl;
-	iter(farr, arr_len, print);
+	iter(farr, arr_len, std::function<void(float&)>(print<float>));
 	std::cout << std::endl;
-
-	std::string sarr[6] = {"hi", "hoi", "hallo", "oi", "ola", "hey"};
-	iter(sarr, arr_len, print);
-	// iter(farr, arr_len, power);
-	// iter(sarr, arr_len, print);
+	
+	std::string sarr[3] = {"hi", "hoi", "hey"};
+	iter(sarr, 3, std::function<void(std::string&)>(print<std::string>));
 
 	return 0;
 }

@@ -48,7 +48,7 @@ template <typename T> Array<T> &Array<T>::operator=(Array<T> const &rhs) {
     delete[] _array;
     _array = new T[rhs.size()];
     _size = rhs.size();
-    for (unsigned int i = 0; i < _size; i++) {
+    for (size_t i = 0; i < _size; i++) {
       _array[i] = rhs._array[i];
     }
   }
