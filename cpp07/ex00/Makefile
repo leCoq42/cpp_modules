@@ -3,7 +3,7 @@ NAME	:= a.out
 ## General ##
 CC		:= g++
 RM		:= rm -rf
-CFLAGS	:= -Wall -Wextra -Werror -std=c++17
+CFLAGS	:= -Wall -Wextra -Werror -std=c++20
 
 ifdef DEBUG
 	CFLAGS += -g -D DEBUG
