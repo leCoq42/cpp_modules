@@ -17,14 +17,5 @@ int main(int argc, char **argv) {
     std::cout << "Value not found!" << std::endl;
   }
 
-
-  const std::vector<int> cv = {8, 4, 5, 9, 10};
-  auto cit = easyfind(cv, atoi(argv[1]));
-  if (cit != cv.end()) {
-    int cidx = cit - cv.begin();
-    std::cout << "Value found at index: " << cidx << std::endl;
-  } else {
-    std::cout << "Value not found!" << std::endl;
-  }
   return 0;
 }
