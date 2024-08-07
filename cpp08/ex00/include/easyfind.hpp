@@ -1,21 +1,16 @@
-#ifndef EASYFIND_HPP
-#define EASYFIND_HPP
+#pragma once
 
 #include <algorithm>
-#include <exception>
 #include <iostream>
 
-class NotFoundException : public std::exception {
-public:
-  virtual const char *what() const throw() { return ("Value not found."); }
-};
-
-template <typename T> int easyfind(T &container, int value) {
-  typename T::iterator ret;
-  ret = std::find(container.begin(), container.end(), value);
-  if (ret == container.end())
-    throw NotFoundException();
-  return std::distance(container.begin(), ret);
+template <typename T>
+typename T::iterator easyfind(T &container, int value)
+{
+  return std::find(container.begin(), container.end(), value);
 }
 
-#endif
+template <typename T>
+typename T::const_iterator easyfind(const T &container, int value)
+{
+  return std::find(container.begin(), container.end(), value);
+}

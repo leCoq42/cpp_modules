@@ -9,11 +9,22 @@ int main(int argc, char **argv) {
   }
 
   std::vector<int> v = {8, 4, 5, 9, 10};
-  try {
-    int i = easyfind(v, atoi(argv[1]));
-    std::cout << "Value found at index: " << i << std::endl;
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
+  auto it = easyfind(v, atoi(argv[1]));
+  if (it != v.end()) {
+    int idx = it - v.begin();
+    std::cout << "Value found at index: " << idx << std::endl;
+  } else {
+    std::cout << "Value not found!" << std::endl;
+  }
+
+
+  const std::vector<int> cv = {8, 4, 5, 9, 10};
+  auto cit = easyfind(cv, atoi(argv[1]));
+  if (cit != cv.end()) {
+    int cidx = cit - cv.begin();
+    std::cout << "Value found at index: " << cidx << std::endl;
+  } else {
+    std::cout << "Value not found!" << std::endl;
   }
   return 0;
 }

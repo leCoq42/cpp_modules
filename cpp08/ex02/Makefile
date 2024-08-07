@@ -1,4 +1,4 @@
-NAME	:= array
+NAME	:= mutant
 
 ## General ##
 CC		:= c++

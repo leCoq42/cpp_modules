@@ -1,4 +1,4 @@
-NAME	:= array
+NAME	:= easyfind
 
 ## General ##
 CC		:= c++
