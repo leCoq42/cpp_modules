@@ -15,7 +15,7 @@ SRC_DIR	:= src
 OBJ_DIR	:= obj
 
 ## Files ##
-SRC		:= main.cpp
+SRC		:= main.cpp BitcoinExchange.cpp
 
 INCLUDE	:= -I $(INC_DIR)
 OBJS	:= $(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
@@ -46,4 +46,4 @@ $(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 ## Phony ##
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re rebug
