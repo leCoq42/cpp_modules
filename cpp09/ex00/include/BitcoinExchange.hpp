@@ -1,6 +1,5 @@
 #pragma once
 
-#include <chrono>
 #include <ctime>
 #include <filesystem>
 #include <map>
@@ -16,17 +15,18 @@ public:
 private:
   std::filesystem::path _dbPath;
   std::filesystem::path _inputPath;
-  std::map<std::string, double> _datetimeMap;
-  std::map<std::string, double> _inputMap;
+  std::map<std::time_t, double> _datetimeMap;
 
+  void swap(BitcoinExchange &lhs);
   void exchange();
-  std::map<std::string, double> parse_database(std::filesystem::path dbPath,
+  std::map<std::time_t, double> parse_database(std::filesystem::path dbPath,
                                                std::string delim);
   void parse_database();
-  std::string
-  formatDatetime(const std::chrono::system_clock::time_point &timePoint,
-                 const std::string &format);
-  std::chrono::system_clock::time_point
-  parseDateTime(const std::string &dateString, const std::string &format);
-  void print_database(std::map<std::string, double> db);
+  std::string formatDatetime(const std::time_t &timePoint,
+                             const std::string &format);
+  // std::time_t parseDateTime(const std::string &dateString, const std::string
+  // &format);
+  std::time_t parseDateTime(const std::string &dateString,
+                            const std::string &format);
+  void print_database(std::map<std::time_t, double> db);
 };
