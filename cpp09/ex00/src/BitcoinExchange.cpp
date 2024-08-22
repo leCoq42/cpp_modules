@@ -1,6 +1,7 @@
 #include "BitcoinExchange.hpp"
 #include <algorithm>
 #include <cctype>
+#include <cstddef>
 #include <ctime>
 #include <filesystem>
 #include <fstream>
@@ -10,7 +11,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
-#include <chrono>
 
 #define FORMAT "%Y-%m-%d "
 
@@ -53,33 +53,23 @@ void BitcoinExchange::swap(BitcoinExchange &lhs)
 std::map<std::time_t, double> BitcoinExchange::parse_database(std::filesystem::path dbPath, std::string delim)
 {
 	std::map<std::time_t, double>	dbMap;
-	std::string					line;
-	std::time_t					key;
-	double						value;
+	std::string						line;
+	std::time_t						key;
+	double							value;
+	std::ifstream					infile;
 
-	std::ifstream infile;
 	infile.open(dbPath, std::ios::in);
 	if (infile.is_open()) {
 		while (getline(infile, line)) {
 			if (!std::isdigit(line[0]))
 				continue;
 			size_t delim_pos = line.find(delim);
-			if (delim_pos == std::string::npos) {
+			if (delim_pos == std::string::npos)
 				throw "Error: invalid csv.";
-			}
 			else {
-				key = parseDateTime(line.substr(0, delim_pos), FORMAT);
-				if (key == -1)
-					throw "Error: invalid date in csv.";
-				try {
-					value = std::stof(line.substr(delim_pos + 1));
-				}
-				catch (const std::invalid_argument &e) {
-					std::cerr << "Invalid amount:" << e.what() << std::endl;
-				}
-				catch (const std::out_of_range &e) {
-					std::cerr << "Over/underflow error: " << e.what() << std::endl;
-				}
+				key = split_keyvalue(value, line, delim_pos);
+				if (key < 0)
+					continue;
 				dbMap.insert({key, value});
 			}
 		}
@@ -112,17 +102,40 @@ std::string BitcoinExchange::formatDatetime(const std::time_t &timePoint, const 
 void BitcoinExchange::print_database(std::map<time_t, double> db)
 {
 	for (auto it: db)
-		std::cout << "Date: " << it.first << ", price: " << it.second << std::endl;
+		std::cout << "Date: " << formatDatetime(it.first, FORMAT) << ", price: " << it.second << std::endl;
+}
+
+std::time_t	BitcoinExchange::split_keyvalue(double &value, const std::string &line, const size_t &delim_pos)
+{
+	time_t key;
+
+	key = parseDateTime(line.substr(0, delim_pos), FORMAT);
+	if (key == -1) {
+		std::cerr << "Error: invalid date => " << line.substr(0, delim_pos) << std::endl;
+		return -1;
+	}
+	try {
+		value = std::stof(line.substr(delim_pos + 1));
+	}
+	catch (const std::invalid_argument &e) {
+		std::cerr << "Invalid amount:" << e.what() << std::endl;
+		return -1;
+	}
+	catch (const std::out_of_range &e) {
+		std::cerr << "Over/underflow error: " << e.what() << std::endl;
+		return -1;
+	}
+	return key;
 }
 
 void BitcoinExchange::exchange()
 {
-	std::string	line;
-	std::time_t	key;
-	double		amount;
-	double		price;
+	std::string		line;
+	std::time_t		key;
+	double			value;
+	double			price;
+	std::ifstream	infile;
 
-	std::ifstream infile;
 	infile.open(_inputPath, std::ios::in);
 	if (infile.is_open()) {
 		while (getline(infile, line)) {
@@ -130,47 +143,36 @@ void BitcoinExchange::exchange()
 				continue;
 			size_t delim_pos = line.find("|");
 			if (delim_pos != std::string::npos) {
-				key = parseDateTime(line.substr(0, delim_pos), FORMAT);
-				if (key == -1) {
-					std::cerr << "Error: invalid date => " << line.substr(0, delim_pos) << std::endl;
+				key = split_keyvalue(value, line, delim_pos);
+				if (key < 0)
+					continue;
+				if (value > 1000) {
+					std::cerr << "Error: too large a number." << std::endl;
 					continue;
 				}
-				try {
-					amount = std::stof(line.substr(delim_pos + 1));
-				}
-				catch (const std::invalid_argument &e) {
-					std::cerr << "Invalid amount:" << e.what() << std::endl;
-				}
-				catch (const std::out_of_range &e) {
-					std::cerr << "Over/underflow error: " << e.what() << std::endl;
-				}
-				if (amount > 1000) {
-					std::cout << "Error: too large a number." << std::endl;
+				if (value < 0) {
+					std::cerr << "Error: not a positive number." << std::endl;
 					continue;
 				}
-				if (amount < 0) {
-					std::cout << "Error: not a positive number." << std::endl;
-					continue;
+				auto res = _datetimeMap.find(key);
+				if (res != _datetimeMap.end())
+					price = res->second;
+				else {
+					res = _datetimeMap.lower_bound(key);
+					if (res != _datetimeMap.begin()) {
+						res--;
+						price = res->second;
+					}
 				}
+				#ifdef DEBUG
+				std::cout << "Bound date: " << formatDatetime(res->first, FORMAT) << ", bound price: " << res->second << std::endl;
+				#endif
+				std::cout << formatDatetime(key, FORMAT) << " => " << value << " = " << (value * price) << std::endl;
 			}
 			else {
-				std::cout << "Error: bad input => " << line << std::endl;
+				std::cerr << "Error: bad input => " << line << std::endl;
 				continue;
 			}
-			auto res = _datetimeMap.find(key);
-			if (res != _datetimeMap.end())
-				price = res->second;
-			else {
-				res = _datetimeMap.lower_bound(key);
-				if (res != _datetimeMap.begin()) {
-					res--;
-					price = res->second;
-				}
-			}
-			#ifdef DEBUG
-			std::cout << "Bound date: " << formatDatetime(res->first, FORMAT) << ", bound price: " << res->second << std::endl;
-			#endif
-			std::cout << formatDatetime(key, FORMAT) << " => " << amount << " = " << (amount * price) << std::endl;
 		}
 	}
 }
