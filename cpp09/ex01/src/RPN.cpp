@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <stack>
 
 RPN::RPN() :
 	_inputStr("")
@@ -26,7 +27,9 @@ RPN::RPN(const std::string &input) :
 	#endif
 }
 
-// RPN::RPN(const RPN &src) {}
+// RPN::RPN(const RPN &src) :
+//_inputStr(src._inputStr)
+// {}
 // RPN &RPN::operator=(const RPN &rhs) {}
 
 void RPN::print_stack(const std::stack<std::string> toPrint)
