@@ -1,4 +1,5 @@
 #include "Brain.hpp"
+#include <iostream>
 
 Brain::Brain() : _ideaCount(0) {
   std::cout << "Brain default constructor called" << std::endl;
@@ -33,9 +34,9 @@ const std::string Brain::getIdea(int i) const {
 }
 
 void Brain::setIdea(std::string idea) {
-  if (_ideaCount >= _max_ideas)
+  if (_ideaCount >= _max_ideas) {
     std::cout << "This Brain is full with ideas already.." << std::endl;
-  else {
+  } else {
     _ideas[_ideaCount] = idea;
     _ideaCount++;
   }

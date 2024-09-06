@@ -1,5 +1,7 @@
 #include "Cat.hpp"
 
+#include <iostream>
+
 Cat::Cat() : _brain(new Brain()) {
   std::cout << "Cat default constructor called" << std::endl;
 

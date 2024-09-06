@@ -1,10 +1,9 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#pragma once
 
-#include <iostream>
+#include <string>
 
 class Animal {
-public:
+ public:
   Animal();
   virtual ~Animal();
 
@@ -14,8 +13,6 @@ public:
   std::string getType() const;
   virtual void makeSound() const;
 
-protected:
+ protected:
   std::string _type;
 };
-
-#endif

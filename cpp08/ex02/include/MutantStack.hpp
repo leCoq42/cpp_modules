@@ -1,9 +1,10 @@
 #pragma once
 
 #include <stack>
+#include <deque>
 
 template <typename T> class MutantStack : public std::stack<T> {
-public:
+ public:
   typedef typename std::deque<T>::iterator iterator;
   iterator begin();
   iterator end();

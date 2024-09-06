@@ -1,10 +1,9 @@
-#ifndef BRAIN_HPP
-#define BRAIN_HPP
+#pragma once
 
-#include <iostream>
+#include <string>
 
 class Brain {
-public:
+ public:
   Brain();
   ~Brain();
   Brain(const Brain &brain);
@@ -14,10 +13,8 @@ public:
   void setIdea(std::string idea);
   int getIdeaCount() const;
 
-private:
+ private:
   static const int _max_ideas = 2;
   int _ideaCount;
   std::string _ideas[_max_ideas];
 };
-
-#endif

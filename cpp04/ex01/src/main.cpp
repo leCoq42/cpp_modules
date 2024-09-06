@@ -1,14 +1,14 @@
+#include <iostream>
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#include <iostream>
 
 #define MSG_BORDER "=------------------------------------------------------="
 
 int main() {
   const Animal *j = new Dog();
   const Animal *i = new Cat();
-  delete j; // should not create a leak
+  delete j;  // should not create a leak
   delete i;
 
   std::cout << std::endl << MSG_BORDER << std::endl << std::endl;
@@ -40,7 +40,7 @@ int main() {
   std::cout << "Cat idea count = " << cat.getIdeaCount() << std::endl;
   std::cout << "Clone idea count = " << clone.getIdeaCount() << std::endl;
   std::cout << "My idea new idea is: " << clone.getIdea(1)
-            << std::endl; // this idea should be 'void'
+            << std::endl;  // this idea should be 'void'
   cat.setIdea("I want to catch a bird!");
   std::cout << "My idea new idea is: " << cat.getIdea(2) << std::endl;
 

@@ -1,11 +1,11 @@
-#ifndef CAT_HPP
-#define CAT_HPP
+#pragma once
 
+#include <string>
 #include "Animal.hpp"
 #include "Brain.hpp"
 
 class Cat : public Animal {
-public:
+ public:
   Cat();
   ~Cat();
 
@@ -18,8 +18,6 @@ public:
   void setIdea(const std::string idea);
   int getIdeaCount() const;
 
-private:
+ private:
   Brain *_brain;
 };
-
-#endif

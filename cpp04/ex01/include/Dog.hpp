@@ -1,11 +1,11 @@
-#ifndef DOG_HPP
-#define DOG_HPP
+#pragma once
 
+#include <string>
 #include "Animal.hpp"
 #include "Brain.hpp"
 
 class Dog : public Animal {
-public:
+ public:
   Dog();
   ~Dog();
 
@@ -18,8 +18,6 @@ public:
   void setIdea(const std::string idea);
   int getIdeaCount() const;
 
-private:
+ private:
   Brain *_brain;
 };
-
-#endif

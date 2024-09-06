@@ -1,16 +1,15 @@
-#include "MutantStack.hpp"
 #include <iostream>
 #include <list>
+#include "MutantStack.hpp"
 
 void test_mutant();
 void test_list();
 
-int main()
-{
-	std::cout << "MutantStack test output:" << std::endl;
-	test_mutant();
-	std::cout << "List test output:" << std::endl;
-	test_list();
+int main() {
+  std::cout << "MutantStack test output:" << std::endl;
+  test_mutant();
+  std::cout << "List test output:" << std::endl;
+  test_list();
 }
 
 void test_mutant() {
@@ -37,7 +36,7 @@ void test_mutant() {
 }
 
 void test_list() {
-	std::list<int> lst;
+  std::list<int> lst;
   lst.push_back(5);
   lst.push_back(17);
   std::cout << lst.back() << std::endl;
@@ -48,8 +47,8 @@ void test_list() {
   lst.push_back(737);
   //[...]
   lst.push_back(0);
-	std::list<int>::iterator it = lst.begin();
-	std::list<int>::iterator ite = lst.end();
+  std::list<int>::iterator it = lst.begin();
+  std::list<int>::iterator ite = lst.end();
   ++it;
   --it;
   while (it != ite) {
