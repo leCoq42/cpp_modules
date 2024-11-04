@@ -5,16 +5,14 @@
 
 class RPN {
 public:
-	RPN();
-	RPN(const std::string &input);
-	~RPN();
-	RPN(const RPN &src);
-	RPN &operator=(const RPN &rhs);
-
-	void print_stack(const std::stack<std::string> toPrint);
+  RPN(const std::string &input);
+  ~RPN();
 
 private:
-	std::string _inputStr;
-	const std::string _token = "+-/*";
-	std::stack<std::string> _tokens;
+  std::string _inputStr;
+  std::stack<int> _stack;
+
+  RPN &operator=(const RPN &rhs);
+  RPN(const RPN &src);
+  RPN();
 };

@@ -2,42 +2,49 @@
 
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <stack>
+#include <string>
 
-RPN::RPN() :
-	_inputStr("")
-{}
+inline const std::string numbers = "0123456789";
+inline const std::string operators = "+-*/";
+inline const std::string space = " ";
 
-RPN::~RPN()
-{}
+RPN::~RPN() {}
 
-RPN::RPN(const std::string &input) :
-	_inputStr(input)
-{
-	std::string reversed(_inputStr.rbegin(), _inputStr.rend());
-	std::stringstream ss(reversed);
-	std::string token;
+RPN::RPN(const std::string &input) : _inputStr(input) {
+  if (input.empty())
+    throw std::invalid_argument("Empty input string");
+  if (input.find_first_not_of(numbers + operators + space) != std::string::npos)
+    throw std::invalid_argument("Invalid input string");
 
-	while (std::getline(ss, token, ' '))
-		_tokens.push(token);
+  std::stringstream ss(input);
+  for (std::string token; ss >> token;) {
+    if (token == "+" || token == "-" || token == "*" || token == "/") {
+      if (_stack.size() < 2)
+        throw std::invalid_argument("Invalid expression");
 
-	#ifdef DEBUG
-	print_stack(_tokens);
-	#endif
-}
+      int right = _stack.top();
+      _stack.pop();
+      int left = _stack.top();
+      _stack.pop();
 
-// RPN::RPN(const RPN &src) :
-//_inputStr(src._inputStr)
-// {}
-// RPN &RPN::operator=(const RPN &rhs) {}
-
-void RPN::print_stack(const std::stack<std::string> toPrint)
-{
-	std::stack<std::string> tmp = toPrint;
-	while (!tmp.empty())
-	{
-		std::cout << "token = " << tmp.top() << std::endl;
-		tmp.pop();
-	}
+      if (token == "+")
+        _stack.push(left + right);
+      else if (token == "-")
+        _stack.push(left - right);
+      else if (token == "*")
+        _stack.push(left * right);
+      else if (token == "/") {
+        if (right == 0)
+          throw std::invalid_argument("Division by zero");
+        _stack.push(left / right);
+      }
+    } else if (std::isdigit(token[0]) && token.length() == 1) {
+      _stack.push(std::stoi(token));
+    } else
+      throw std::invalid_argument("Invalid expression");
+  }
+  if (_stack.size() != 1)
+    throw std::invalid_argument("Invalid expression");
+  std::cout << "Result = " << _stack.top() << std::endl;
 }
