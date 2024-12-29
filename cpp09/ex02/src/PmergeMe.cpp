@@ -29,15 +29,15 @@ std::vector<unsigned int>
 PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> input) {
   size_t n = input.size();
 
-  if (n <= 1)
+  if (n < 2)
     return input;
 
   std::vector<std::pair<unsigned int, unsigned int>> pairs;
-  for (unsigned int i = 0; i < std::floor(n / 2); i++) {
-    if (input[2 * i] <= input[2 * i + 1])
-      pairs.emplace_back(input[2 * i], input[2 * i + 1]);
+  for (unsigned int i = 1; i < std::floor(n / 2); i++) {
+    if (input[2 * i - 1] <= input[2 * i])
+      pairs.emplace_back(input[2 * i - 1], input[2 * i]);
     else
-      pairs.emplace_back(input[2 * i + 1], input[2 * i]);
+      pairs.emplace_back(input[2 * i], input[2 * i - 1]);
   }
 
   std::cout << "Num pairs: " << pairs.size() << "\n";
@@ -46,17 +46,17 @@ PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> input) {
               << "\n";
   }
 
-  unsigned int *leftover = NULL;
-  if (n % 2 == 1) {
-    leftover = &input[n - 1];
-    std::cout << "Leftover: " << *leftover << "\n";
-  }
-
   std::vector<unsigned int> larger;
   for (std::pair<unsigned int, unsigned int> it : pairs) {
     larger.emplace_back(it.second);
   }
   std::vector<unsigned int> sorted_large = Ford_Johnson_Sort(larger);
+
+  unsigned int *leftover = NULL;
+  if (n % 2 == 1) {
+    leftover = &input[n - 1];
+    std::cout << "Leftover: " << *leftover << "\n";
+  }
 
   std::vector<unsigned int> smaller;
   for (std::pair<unsigned int, unsigned int> it : pairs) {
