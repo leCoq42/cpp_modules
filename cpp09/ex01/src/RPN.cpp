@@ -1,7 +1,6 @@
 #include "RPN.hpp"
 
 #include <algorithm>
-#include <iostream>
 #include <sstream>
 #include <stack>
 #include <string>
@@ -11,7 +10,7 @@ RPN::~RPN() {}
 RPN::RPN(const std::string &input) : _inputStr(input) {
   if (_inputStr.empty())
     throw std::invalid_argument("Empty input string");
-  if (_inputStr.find_first_not_of(RPN::NUMBERS + RPN::OPERATORS + RPN::OPERATORS) !=
+  if (_inputStr.find_first_not_of(RPN::NUMBERS + RPN::OPERATORS + RPN::SPACE) != 
       std::string::npos)
     throw std::invalid_argument("Invalid input string");
   calculate();
@@ -39,13 +38,16 @@ void RPN::calculate() {
         if (right == 0)
           throw std::invalid_argument("Division by zero");
         _stack.push(left / right);
-      } else if (std::all_of(token.begin(), token.end(), ::isdigit)) {
-        _stack.push(std::stoi(token));
-      } else
-        throw std::invalid_argument("Invalid expression");
-    }
-    if (_stack.size() != 1)
+      }
+    } else if (std::all_of(token.begin(), token.end(), ::isdigit)) {
+      _stack.push(std::stoi(token));
+    } else
       throw std::invalid_argument("Invalid expression");
-    std::cout << "Result = " << _stack.top() << std::endl;
   }
+  if (_stack.size() != 1)
+    throw std::invalid_argument("Invalid expression");
+  _result = _stack.top();
 }
+
+
+int RPN::getResult() const { return _result; }
