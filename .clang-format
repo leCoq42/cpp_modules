@@ -1,0 +1,15 @@
+# Use the LLVM coding style as the base for this configuration.
+BasedOnStyle: LLVM
+
+# Set maximum line width to 80 columns.
+# Exceeding lines will be wrapped.
+ColumnLimit: 80
+
+# Always use tabs for indentation instead of spaces.
+UseTab: Always
+
+# Set the width of a single tab to 4 columns.
+TabWidth: "4"
+
+# Enforce 4-space indentation, as per the Norminette.
+IndentWidth: "4"

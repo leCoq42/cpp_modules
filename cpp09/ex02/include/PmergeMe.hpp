@@ -5,23 +5,27 @@
 #include <vector>
 
 class PmergeMe {
-public:
-  PmergeMe(char **argv);
-  ~PmergeMe();
-  static size_t timeToProcess(size_t range);
+  public:
+	PmergeMe(char **argv);
+	~PmergeMe();
+	static size_t timeToProcess(size_t range);
 
-  std::list<unsigned int> _inputList;
-  std::vector<unsigned int> _inputVector;
+	std::list<unsigned int> _inputList;
+	std::vector<unsigned int> _inputVector;
 
-private:
-  PmergeMe();
-  std::vector<unsigned int> Ford_Johnson_Sort(std::vector<unsigned int> input);
-  std::list<unsigned int> Ford_Johnson_Sort(std::list<unsigned int> input);
+  private:
+	PmergeMe();
 
-  std::vector<unsigned int> Merge_Insert_Jacobsthal(std::vector<unsigned int> sorted_large,
-                                           std::vector<unsigned int> smaller);
-  std::list<unsigned int> Merge_Insert_Jacobsthal(std::list<unsigned int> sorted_large,
-                                         std::list<unsigned int> smaller);
+	std::vector<unsigned int>
+	Ford_Johnson_Sort(std::vector<unsigned int> &input);
 
-  std::vector<size_t> generate_jacobsthal_numbers(size_t size);
+	std::vector<unsigned int>
+	InsertionSortJacobsthal(std::vector<unsigned int> sorted,
+							std::vector<unsigned int> smaller,
+							std::vector<size_t> insertOrder);
+
+	std::vector<size_t> generateInsertionOrder(size_t size);
+	size_t binarySearch(std::vector<unsigned int> &arr, unsigned int val);
+
+	std::vector<unsigned int> generateJacobsthalNums(size_t size);
 };
