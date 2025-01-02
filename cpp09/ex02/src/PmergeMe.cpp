@@ -3,142 +3,97 @@
 #include <cstddef>
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <chrono>
+#include <iostream>
 
 PmergeMe::PmergeMe(char **argv) {
+	if (!argv || !*argv)
+        throw std::invalid_argument("Invalid input");
+
 	size_t i = 0;
 
-	std::cout << "Before: ";
 	while (argv[++i] != NULL) {
-		std::cout << argv[i] << " ";
 		_inputList.push_back(atoi(argv[i]));
 		_inputVector.push_back(atoi(argv[i]));
 	}
-	std::cout << "\n";
 
+	// #ifdef DEBUG
+	std::cout << "Before: ";
+	for (auto it: _inputVector)
+		std::cout << it << " ";
+	std::cout << "\n" << BORDER << "\n";
+	// #endif
+
+	auto t1 = std::chrono::high_resolution_clock::now();
 	std::vector<unsigned int> sortedVec = Ford_Johnson_Sort(_inputVector);
+	auto t2 = std::chrono::high_resolution_clock::now();
+	auto vec_time_us = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
 
-	std::cout << "Sorted array size = " << sortedVec.size() << "\n";
-	std::cout << "Sorted: ";
-	for (const auto &it : sortedVec) {
+	auto t3 = std::chrono::high_resolution_clock::now();
+	std::list<unsigned int> sortedList = Ford_Johnson_Sort(_inputList);
+	auto t4 = std::chrono::high_resolution_clock::now();
+	auto list_time_us = std::chrono::duration_cast<std::chrono::microseconds>(t4 - t3);
+
+	std::cout << BORDER << "\n";
+	#ifdef DEBUG
+	std::cout << "After: ";
+	for (const auto &it : sortedList) {
 		std::cout << it << " ";
 	}
 	std::cout << "\n";
+	#endif
+
+	std::cout << "Sorted vec size = " << sortedVec.size() << "\n";
+	std::cout << "Vec contains dups: " << checkDuplicatesVec(sortedVec) << "\n";
+	if (std::is_sorted(sortedVec.begin(), sortedVec.end())) {
+        std::cout << "Verification: The vector is sorted!\n";
+    } else {
+        std::cout << "Verification: The vector is NOT sorted.\n";
+    }
+	std::cout << "Time to sort(vec): " << vec_time_us.count() << "us\n";
+
+	std::cout << BORDER << "\n";
+
+	std::cout << "Sorted list size = " << sortedList.size() << "\n";
+	std::cout << "List contains dups: " << checkDuplicatesList(sortedList) << "\n";
+	if (std::is_sorted(sortedList.begin(), sortedList.end())) {
+        std::cout << "Verification: The list is sorted!\n";
+    } else {
+        std::cout << "Verification: The list is NOT sorted.\n";
+    }
+	std::cout << "Time to sort(list): " << list_time_us.count() << "us\n";
+	std::cout << BORDER << "\n";
 }
 
 PmergeMe::~PmergeMe() {}
 
-std::vector<unsigned int>
-PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
-	size_t n = input.size();
-
-	if (n < 2)
-		return input;
-
-	std::vector<std::pair<unsigned int, unsigned int>> pairs;
-	for (size_t i = 0; i < (n / 2); ++i) {
-		if (input[2 * i] <= input[2 * i + 1])
-			pairs.emplace_back(input[2 * i], input[2 * i + 1]);
-		else
-			pairs.emplace_back(input[2 * i + 1], input[2 * i]);
-	}
-
-	std::cout << "Num pairs: " << pairs.size() << "\n";
-	for (auto it : pairs) {
-		std::cout << "First: " << it.first << " " << "Second: " << it.second
-				  << "\n";
-	}
-
-	std::vector<unsigned int> larger;
-	std::vector<unsigned int> smaller;
-	for (const std::pair<unsigned int, unsigned int> &pair : pairs) {
-		larger.emplace_back(pair.second);
-		smaller.emplace_back(pair.first);
-	}
-
-	std::vector<unsigned int> sortedLarger = Ford_Johnson_Sort(larger);
-	std::vector<unsigned int> final = sortedLarger;
-
-	if (!smaller.empty())
-		final.insert(final.begin(), smaller[0]);
-
-	std::vector<size_t> insertOrder = generateInsertionOrder(smaller.size());
-
-	std::vector<unsigned int> sorted =
-		InsertionSortJacobsthal(final, smaller, insertOrder);
-
-	if (n % 2 == 1) {
-		size_t pos = binarySearch(sorted, input.back());
-		sorted.insert(sorted.begin() + pos, input.back());
-	}
-
-	return sorted;
+bool PmergeMe::checkDuplicatesVec(std::vector<unsigned int> &arr) {
+  	int n = arr.size();
+  	
+    sort(arr.begin(), arr.end());
+    for (int i = 1; i < n; ++i) {
+        if (arr[i] == arr[i - 1])
+            return true;
+    }
+    return false;
 }
 
-std::vector<unsigned int>
-PmergeMe::InsertionSortJacobsthal(std::vector<unsigned int> sorted,
-								  std::vector<unsigned int> smaller,
-								  std::vector<size_t> insertOrder) {
-	for (size_t k : insertOrder) {
-			unsigned int elementToInsert = smaller[k];
-			size_t pos = binarySearch(sorted, elementToInsert);
-			sorted.insert(sorted.begin() + pos, elementToInsert);
-	}
-	return sorted;
-}
-
-std::vector<size_t> PmergeMe::generateInsertionOrder(size_t size) {
-	std::vector<unsigned int> jacobsthalNums = generateJacobsthalNums(size);
-
-	std::cout << "Jacobsthal Numbers: ";
-	for (const auto &it : jacobsthalNums) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-
-	std::vector<size_t> insertOrder;
-	for (size_t i = 2; i < jacobsthalNums.size(); ++i) {
-		for (size_t j = jacobsthalNums[i]; j > jacobsthalNums[i - 1] + 1; --j) {
-			if (j <= size && j > 1)
-				insertOrder.emplace_back(j - 1);
-		}
-	}
-
-	std::cout << "Insertion order: ";
-	for (const auto &it : insertOrder) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-
-	return insertOrder;
-}
-
-std::vector<unsigned int> PmergeMe::generateJacobsthalNums(size_t size) {
-	std::vector<unsigned int> jacobsthal_nums = {0, 1};
-
-	while (jacobsthal_nums.back() < size) {
-		jacobsthal_nums.emplace_back(
-			jacobsthal_nums.back() +
-			2 * jacobsthal_nums[jacobsthal_nums.size() - 2]);
-	}
-	return jacobsthal_nums;
-}
-
-size_t PmergeMe::binarySearch(std::vector<unsigned int> &arr,
-							  unsigned int val) {
+bool PmergeMe::checkDuplicatesList(std::list<unsigned int> &arr) {
 	if (arr.empty())
-		return 0;
-
-	size_t low = 0;
-	size_t high = arr.size();
-
-	while (low < high) {
-		size_t mid = low + (high - low) / 2;
-		if (arr[mid] < val)
-			low = mid + 1;
-		else
-			high = mid;
+		return false;
+  	
+    arr.sort();
+	auto prev = arr.begin();
+	auto cur = std::next(arr.begin());
+	
+	while (cur != arr.end())
+	{
+		if (*prev == *cur)
+			return true;
+		prev = cur;
+		cur++;
 	}
-	return low;
+    return false;
 }
 
-size_t PmergeMe::timeToProcess(size_t range) { return range; }
