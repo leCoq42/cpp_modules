@@ -17,12 +17,12 @@ PmergeMe::PmergeMe(char **argv) {
 		_inputVector.push_back(atoi(argv[i]));
 	}
 
-	// #ifdef DEBUG
+	#ifdef DEBUG
 	std::cout << "Before: ";
 	for (auto it : _inputVector)
 		std::cout << it << " ";
 	std::cout << "\n" << BORDER << "\n";
-	// #endif
+	#endif
 
 	auto t1 = std::chrono::high_resolution_clock::now();
 	std::vector<unsigned int> sortedVec = Ford_Johnson_Sort(_inputVector);

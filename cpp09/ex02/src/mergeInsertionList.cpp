@@ -37,48 +37,98 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 	std::cout << BORDER << "\n";
 #endif
 
-	std::list<unsigned int> larger;
-	for (const auto &p : pairs) {
-		larger.emplace_back(p.second);
-	}
-
-	std::list<unsigned int> sorted = Ford_Johnson_Sort(larger);
+	sortPairs(pairs, 0, pairs.size() - 1);
 
 #ifdef DEBUG
-	std::cout << "Sorted: ";
-	for (auto num : sorted) {
-		std::cout << num << " ";
+	std::cout << "Num sorted pairs: " << pairs.size() << "\n";
+	for (auto it : pairs) {
+		std::cout << "Smaller: " << it.first << " " << "Larger: " << it.second
+				  << "\n";
 	}
-	std::cout << "\n";
-	std::cout << "Pending: ";
-	for (auto p : pairs) {
-		std::cout << p.first << " ";
-	}
-	std::cout << "\n";
 	if (n % 2 != 0)
 		std::cout << "Leftover: " << input.back() << "\n";
 #endif
 
+	std::list<unsigned int> result;
+	for (const auto &p : pairs)
+		result.emplace_back(p.second);
+
 	std::list<size_t> insertOrder = generateInsertionOrderList(pairs.size());
 
-	sorted = InsertionSortJacobsthal(sorted, pairs, insertOrder);
+	result = InsertionSortJacobsthal(result, pairs, insertOrder);
 
 	if (n % 2 == 1) {
-		size_t pos = binarySearch(sorted, input.back());
-		auto insertIt = sorted.begin();
+		size_t pos = binarySearch(result, input.back());
+		auto insertIt = result.begin();
 		std::advance(insertIt, pos);
-		sorted.insert(insertIt, input.back());
+		result.insert(insertIt, input.back());
 	}
 
 #ifdef DEBUG
 	std::cout << "Sorted: ";
-	for (auto num : sorted) {
+	for (auto num : result) {
 		std::cout << num << " ";
 	}
 	std::cout << "\n" << BORDER << "\n";
 #endif
 
-	return sorted;
+	return result;
+}
+
+void PmergeMe::sortPairs(
+	std::list<std::pair<unsigned int, unsigned int>> &pairs,
+	const unsigned int begin, const unsigned int end) {
+	if (begin >= end)
+		return;
+	int mid = begin + (end - begin) / 2;
+	sortPairs(pairs, begin, mid);
+	sortPairs(pairs, mid + 1, end);
+	mergePairs(pairs, begin, mid, end);
+}
+
+void PmergeMe::mergePairs(
+	std::list<std::pair<unsigned int, unsigned int>> &pairs,
+	const unsigned int left, const unsigned int mid, const unsigned int right) {
+
+	std::list<std::pair<unsigned int, unsigned int>> result;
+
+	auto leftIt = pairs.begin();
+	std::advance(leftIt, left);
+
+	auto midIt = pairs.begin();
+	std::advance(midIt, mid + 1);
+
+	auto rightIt = pairs.begin();
+    std::advance(rightIt, right + 1);
+
+	std::vector<std::pair<unsigned int, unsigned int>> leftList(leftIt, midIt);
+	std::vector<std::pair<unsigned int, unsigned int>> rightList(midIt, rightIt);
+
+	auto leftCurrent = leftList.begin();
+    auto rightCurrent = rightList.begin();
+
+	while (leftCurrent != leftList.end() && rightCurrent != rightList.end()) {
+		if (leftCurrent->second <= rightCurrent->second) {
+			result.push_back(*leftCurrent);
+			++leftCurrent;
+		} else {
+			result.push_back(*rightCurrent);
+			++rightCurrent;
+		}
+	}
+
+	result.insert(result.end(), leftCurrent, leftList.end());
+    result.insert(result.end(), rightCurrent, rightList.end());
+
+    auto targetIt = pairs.begin();
+    std::advance(targetIt, left);
+    auto sourceIt = result.begin();
+
+	while (sourceIt != result.end()) {
+        *targetIt = *sourceIt;
+        ++targetIt;
+        ++sourceIt;
+    }
 }
 
 std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(

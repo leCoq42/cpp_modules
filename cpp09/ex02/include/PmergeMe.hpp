@@ -20,6 +20,16 @@ class PmergeMe {
 	Ford_Johnson_Sort(std::vector<unsigned int> &input);
 	std::list<unsigned int> Ford_Johnson_Sort(std::list<unsigned int> &input);
 
+	void sortPairs(std::vector<std::pair<unsigned int, unsigned int>> &pairs,
+				   const unsigned int begin, const unsigned int end);
+	void sortPairs(std::list<std::pair<unsigned int, unsigned int>> &pairs,
+				   const unsigned int begin, const unsigned int end);
+	void mergePairs(std::vector<std::pair<unsigned int, unsigned int>> &pairs,
+					const unsigned int begin, const unsigned int mid,
+					const unsigned int end);
+	void mergePairs(std::list<std::pair<unsigned int, unsigned int>> &pairs,
+					const unsigned int left, const unsigned int mid, const unsigned int right);
+
 	std::vector<unsigned int> InsertionSortJacobsthal(
 		std::vector<unsigned int> &sorted,
 		const std::vector<std::pair<unsigned int, unsigned int>> &pairs,

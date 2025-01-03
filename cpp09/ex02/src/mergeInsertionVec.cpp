@@ -1,5 +1,7 @@
 #include "PmergeMe.hpp"
+#include <cstddef>
 #include <iostream>
+#include <iterator>
 
 std::vector<unsigned int>
 PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
@@ -15,13 +17,10 @@ PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
 	}
 
 	std::vector<std::pair<unsigned int, unsigned int>> pairs;
-	std::vector<unsigned int> larger;
-
 	for (size_t i = 0; i < (n / 2); ++i) {
 		unsigned int min = std::min(input[2 * i], input[2 * i + 1]);
 		unsigned int max = std::max(input[2 * i], input[2 * i + 1]);
 		pairs.emplace_back(min, max);
-		larger.emplace_back(max);
 	}
 
 #ifdef DEBUG
@@ -35,48 +34,97 @@ PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
 	std::cout << BORDER << "\n";
 #endif
 
-	std::vector<unsigned int> sortedLarger = Ford_Johnson_Sort(larger);
+	sortPairs(pairs, 0, pairs.size() - 1);
 
 #ifdef DEBUG
-	std::cout << "Sorted larger: ";
-	for (auto num : sortedLarger) {
-		std::cout << num << " ";
+	std::cout << "Sorted pairs: " << pairs.size() << "\n";
+	for (auto it : pairs) {
+		std::cout << "Smaller: " << it.first << " " << "Larger: " << it.second
+				  << "\n";
 	}
-	std::cout << "\n";
-	std::cout << "Pending: ";
-	for (auto p : pairs) {
-		std::cout << p.first << " ";
-	}
-	std::cout << "\n";
 	if (n % 2 != 0)
 		std::cout << "Leftover: " << input.back() << "\n";
+	std::cout << BORDER << "\n";
 #endif
 
-	if (!pairs.empty()) {
-		auto pos = std::lower_bound(sortedLarger.begin(), sortedLarger.end(),
-									pairs[0].first);
-		sortedLarger.insert(pos, pairs[0].first);
-	}
+	std::vector<unsigned int> result;
+	for (const auto &pair : pairs)
+		result.emplace_back(pair.second);
+
+	if (!pairs.empty())
+		result.insert(result.begin(), pairs[0].first);
 
 	std::vector<size_t> insertOrder = generateInsertionOrder(pairs.size());
 
-	sortedLarger = InsertionSortJacobsthal(sortedLarger, pairs, insertOrder);
+	result = InsertionSortJacobsthal(result, pairs, insertOrder);
 
 	if (n % 2 == 1) {
-		auto pos = std::lower_bound(sortedLarger.begin(), sortedLarger.end(),
-									input.back());
-		sortedLarger.insert(pos, input.back());
+		auto pos = std::lower_bound(result.begin(), result.end(), input.back());
+		result.insert(pos, input.back());
 	}
 
 #ifdef DEBUG
 	std::cout << "sorted: ";
-	for (auto num : sortedLarger) {
+	for (auto num : result) {
 		std::cout << num << " ";
 	}
 	std::cout << "\n" << BORDER << "\n";
 #endif
 
-	return sortedLarger;
+	return result;
+}
+
+void PmergeMe::sortPairs(
+	std::vector<std::pair<unsigned int, unsigned int>> &pairs,
+	const unsigned int begin, const unsigned int end) {
+	if (begin >= end)
+		return;
+	int mid = begin + (end - begin) / 2;
+	sortPairs(pairs, begin, mid);
+	sortPairs(pairs, mid + 1, end);
+	mergePairs(pairs, begin, mid, end);
+}
+
+void PmergeMe::mergePairs(
+	std::vector<std::pair<unsigned int, unsigned int>> &pairs,
+	const unsigned int left, const unsigned int mid, const unsigned int right) {
+	const size_t leftLen = mid - left + 1;
+	const size_t rightLen = right - mid;
+
+	std::vector<std::pair<unsigned int, unsigned int>> leftArr;
+	std::vector<std::pair<unsigned int, unsigned int>> rightArr;
+
+	for (size_t i = 0; i < leftLen; ++i) {
+		leftArr.emplace_back(pairs[left + i]);
+	}
+	for (size_t i = 0; i < rightLen; ++i) {
+		rightArr.emplace_back(pairs[mid + 1 + i]);
+	}
+
+	size_t leftIndex = 0;
+	size_t rightIndex = 0;
+	size_t mergedIndex = left;
+
+	while (leftIndex < leftLen && rightIndex < rightLen) {
+		if (leftArr[leftIndex].second <= rightArr[rightIndex].second) {
+			pairs[mergedIndex] = leftArr[leftIndex];
+			++leftIndex;
+		} else {
+			pairs[mergedIndex] = rightArr[rightIndex];
+			++rightIndex;
+		}
+		++mergedIndex;
+	}
+	while (leftIndex < leftLen) {
+		pairs[mergedIndex] = leftArr[leftIndex];
+		++leftIndex;
+		++mergedIndex;
+	}
+	while (rightIndex < rightLen) {
+		pairs[mergedIndex] = rightArr[rightIndex];
+		++rightIndex;
+		++mergedIndex;
+	}
 }
 
 std::vector<unsigned int> PmergeMe::InsertionSortJacobsthal(
