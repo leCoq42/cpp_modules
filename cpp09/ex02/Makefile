@@ -6,7 +6,10 @@ RM		:= rm -rf
 CFLAGS	:= -Wall -Wextra -Werror -std=c++20
 
 ifdef DEBUG
-	CFLAGS += -g -D DEBUG #-fsanitize=address,undefined
+	CFLAGS += -g -Og -D DEBUG #-fsanitize=address,undefined
+endif
+ifndef DEBUG
+	CFLAGS += -Ofast -march=native -flto
 endif
 
 ## Directories ##

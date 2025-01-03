@@ -9,10 +9,5 @@ int main(int argc, char **argv) {
 	srand(time(NULL));
 
 	PmergeMe pmergeMe(argv);
-	// std::cout << "Time to process a range of " << pmergeMe._inputList.size()
-	//           << " elements with std::... : " << 0 << " us" << std::endl;
-	// std::cout << "Time to process a range of " <<
-	// pmergeMe._inputVector.size()
-	//           << " elements with std::... : " << 0 << " us " << std::endl;
 	return 0;
 }
