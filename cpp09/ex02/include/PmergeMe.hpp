@@ -28,7 +28,8 @@ class PmergeMe {
 					const unsigned int begin, const unsigned int mid,
 					const unsigned int end);
 	void mergePairs(std::list<std::pair<unsigned int, unsigned int>> &pairs,
-					const unsigned int left, const unsigned int mid, const unsigned int right);
+					const unsigned int left, const unsigned int mid,
+					const unsigned int right);
 
 	std::vector<unsigned int> InsertionSortJacobsthal(
 		std::vector<unsigned int> &sorted,
@@ -42,8 +43,16 @@ class PmergeMe {
 	std::vector<size_t> generateInsertionOrder(const size_t &size);
 	std::list<size_t> generateInsertionOrderList(const size_t &size);
 
-	size_t binarySearch(const std::list<unsigned int> &arr,
-						const unsigned int &val);
+	// size_t binarySearch(const std::list<unsigned int> &arr,
+	// 					const unsigned int &val);
+
+	size_t binarySearchVec(std::vector<unsigned int> &res, unsigned int item,
+						   size_t low, size_t high);
+
+	std::list<unsigned int>::iterator
+	binarySearchList(std::list<unsigned int> &arr, unsigned int item,
+					 std::list<unsigned int>::iterator low,
+					 std::list<unsigned int>::iterator high);
 
 	std::vector<unsigned int> generateJacobsthalNums(const size_t &size);
 	std::list<unsigned int> generateJacobsthalNumsList(const size_t &size);

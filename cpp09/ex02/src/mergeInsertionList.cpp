@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <iostream>
+#include <iterator>
 
 std::list<unsigned int>
 PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
@@ -16,8 +17,8 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 		return input;
 	}
 
-	auto end = input.end();
 	std::list<std::pair<unsigned int, unsigned int>> pairs;
+	auto end = input.end();
 	auto it = input.begin();
 	while (it != end && std::next(it) != end) {
 		unsigned int first = *it;
@@ -26,8 +27,10 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 		std::advance(it, 2);
 	}
 
+	sortPairs(pairs, 0, pairs.size() - 1);
+
 #ifdef DEBUG
-	std::cout << "Num pairs: " << pairs.size() << "\n";
+	std::cout << "Sorted pairs: " << pairs.size() << "\n";
 	for (auto it : pairs) {
 		std::cout << "Smaller: " << it.first << " " << "Larger: " << it.second
 				  << "\n";
@@ -37,31 +40,22 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 	std::cout << BORDER << "\n";
 #endif
 
-	sortPairs(pairs, 0, pairs.size() - 1);
-
-#ifdef DEBUG
-	std::cout << "Num sorted pairs: " << pairs.size() << "\n";
-	for (auto it : pairs) {
-		std::cout << "Smaller: " << it.first << " " << "Larger: " << it.second
-				  << "\n";
-	}
-	if (n % 2 != 0)
-		std::cout << "Leftover: " << input.back() << "\n";
-#endif
-
 	std::list<unsigned int> result;
 	for (const auto &p : pairs)
 		result.emplace_back(p.second);
+
+	if (!pairs.empty())
+		result.push_front(pairs.front().first);
 
 	std::list<size_t> insertOrder = generateInsertionOrderList(pairs.size());
 
 	result = InsertionSortJacobsthal(result, pairs, insertOrder);
 
 	if (n % 2 == 1) {
-		size_t pos = binarySearch(result, input.back());
-		auto insertIt = result.begin();
-		std::advance(insertIt, pos);
-		result.insert(insertIt, input.back());
+		unsigned int pending = *std::prev(input.end());
+		auto pos =
+			binarySearchList(result, pending, result.begin(), result.end());
+		result.insert(pos, input.back());
 	}
 
 #ifdef DEBUG
@@ -99,15 +93,12 @@ void PmergeMe::mergePairs(
 	std::advance(midIt, mid + 1);
 
 	auto rightIt = pairs.begin();
-    std::advance(rightIt, right + 1);
+	std::advance(rightIt, right + 1);
 
-	std::vector<std::pair<unsigned int, unsigned int>> leftList(leftIt, midIt);
-	std::vector<std::pair<unsigned int, unsigned int>> rightList(midIt, rightIt);
+	auto leftCurrent = leftIt;
+	auto rightCurrent = rightIt;
 
-	auto leftCurrent = leftList.begin();
-    auto rightCurrent = rightList.begin();
-
-	while (leftCurrent != leftList.end() && rightCurrent != rightList.end()) {
+	while (leftCurrent != midIt && rightCurrent != rightIt) {
 		if (leftCurrent->second <= rightCurrent->second) {
 			result.push_back(*leftCurrent);
 			++leftCurrent;
@@ -117,18 +108,20 @@ void PmergeMe::mergePairs(
 		}
 	}
 
-	result.insert(result.end(), leftCurrent, leftList.end());
-    result.insert(result.end(), rightCurrent, rightList.end());
+	while (leftCurrent != midIt) {
+		result.push_back(*leftCurrent);
+		++leftCurrent;
+	}
+	while (rightCurrent != rightIt) {
+		result.push_back(*rightCurrent);
+		++rightCurrent;
+	}
 
-    auto targetIt = pairs.begin();
-    std::advance(targetIt, left);
-    auto sourceIt = result.begin();
-
-	while (sourceIt != result.end()) {
-        *targetIt = *sourceIt;
-        ++targetIt;
-        ++sourceIt;
-    }
+	auto targetIt = leftIt;
+	for (const auto &p : result) {
+		*targetIt = p;
+		++targetIt;
+	}
 }
 
 std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
@@ -136,15 +129,17 @@ std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
 	const std::list<std::pair<unsigned int, unsigned int>> &pairs,
 	const std::list<size_t> &insertOrder) {
 	for (size_t k : insertOrder) {
-		if (k >= pairs.size())
-			continue;
-		auto it = pairs.begin();
-		std::advance(it, k);
-		unsigned int elementToInsert = it->first;
-		size_t pos = binarySearch(sorted, elementToInsert);
-		auto insertIt = sorted.begin();
-		std::advance(insertIt, pos);
-		sorted.insert(insertIt, elementToInsert);
+		auto low = sorted.begin();
+		auto high = sorted.begin();
+		std::advance(high, k);
+
+		auto pending = pairs.begin();
+		std::advance(pending, k);
+
+		unsigned int elementToInsert = pending->first;
+
+		auto pos = binarySearchList(sorted, elementToInsert, low, high);
+		sorted.insert(pos, elementToInsert);
 	}
 	return sorted;
 }
@@ -152,32 +147,22 @@ std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
 std::list<size_t> PmergeMe::generateInsertionOrderList(const size_t &size) {
 	std::list<unsigned int> jacobsthalNums = generateJacobsthalNumsList(size);
 
-#ifdef DEBUG
-	std::cout << "Jacobsthal Numbers: ";
-	for (const auto &it : jacobsthalNums) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-#endif
-
 	std::list<size_t> insertOrder;
 	if (size < 1)
 		return insertOrder;
 
-	insertOrder.push_back(0);
-
 	auto it = jacobsthalNums.begin();
-	std::advance(it, 2);
+	std::advance(it, 3);
 
 	auto prev_it = jacobsthalNums.begin();
-	std::advance(prev_it, 1);
+	std::advance(prev_it, 2);
 
 	while (it != jacobsthalNums.end()) {
 		auto cur = *it;
 		auto prev = *prev_it;
 
 		for (size_t j = cur; j > prev; --j) {
-			if (j - 1 < size) {
+			if (j - 1 < size && j > 1) {
 				insertOrder.emplace_back(j - 1);
 			}
 		}
@@ -186,13 +171,17 @@ std::list<size_t> PmergeMe::generateInsertionOrderList(const size_t &size) {
 	}
 
 #ifdef DEBUG
+	std::cout << "Jacobsthal Numbers: ";
+	for (const auto &it : jacobsthalNums) {
+		std::cout << it << " ";
+	}
+	std::cout << "\n";
 	std::cout << "Insertion order: ";
 	for (const auto &it : insertOrder) {
 		std::cout << it << " ";
 	}
 	std::cout << "\n";
 #endif
-
 	return insertOrder;
 }
 
@@ -213,24 +202,20 @@ PmergeMe::generateJacobsthalNumsList(const size_t &size) {
 	return jacobsthal_nums;
 }
 
-size_t PmergeMe::binarySearch(const std::list<unsigned int> &arr,
-							  const unsigned int &val) {
-	if (arr.empty())
-		return 0;
+std::list<unsigned int>::iterator
+PmergeMe::binarySearchList(std::list<unsigned int> &arr, unsigned int item,
+						   std::list<unsigned int>::iterator low,
+						   std::list<unsigned int>::iterator high) {
+	if (std::distance(low, high) <= 0)
+		return (item > *low) ? std::next(low) : low;
 
-	size_t pos = 0;
-	size_t high = arr.size();
+	auto mid = low;
+	std::advance(mid, std::distance(low, high) / 2);
 
-	while (pos < high) {
-		size_t mid = pos + (high - pos) / 2;
-		auto it = arr.begin();
-		std::advance(it, mid);
+	if (item == *mid)
+		return std::next(mid);
 
-		if (*it < val) {
-			pos = mid + 1;
-		} else {
-			high = mid;
-		}
-	}
-	return pos;
+	if (item > *mid)
+		return binarySearchList(arr, item, std::next(mid), high);
+	return binarySearchList(arr, item, low, mid);
 }

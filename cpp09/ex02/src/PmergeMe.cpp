@@ -36,7 +36,6 @@ PmergeMe::PmergeMe(char **argv) {
 	auto list_time_us =
 		std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3);
 
-	std::cout << BORDER << "\n";
 #ifdef DEBUG
 	std::cout << "After: ";
 	for (const auto &it : sortedList) {
