@@ -4,23 +4,24 @@
 #include <string>
 
 class RPN {
-public:
-  RPN(const std::string &input);
-  ~RPN();
-  int getResult() const;
+  public:
+	RPN(const std::string &input);
+	~RPN();
+	int getResult() const;
 
-  const std::string NUMBERS = "0123456789";
-  const std::string OPERATORS = "+-*/";
-  const std::string SPACE = " ";
+	const std::string NUMBERS = "0123456789";
+	const std::string OPERATORS = "+-*/";
+	const std::string SPACE = " ";
 
-private:
-  std::string _inputStr;
-  std::stack<int> _stack;
-  int _result;
+  private:
+	std::string _inputStr;
+	std::stack<int> _stack;
+	int _result;
 
-  RPN &operator=(const RPN &rhs);
-  RPN(const RPN &src);
-  RPN();
+	RPN();
+	RPN(const RPN &src);
+	RPN &operator=(const RPN &rhs);
 
-  void calculate();
+	void calculate();
+	void performOperation(char token, int left, int right);
 };
