@@ -7,9 +7,6 @@
 #include <vector>
 
 PmergeMe::PmergeMe(char **argv) {
-	if (!argv || !*argv)
-		throw std::invalid_argument("Invalid input");
-
 	size_t i = 0;
 
 	while (argv[++i] != NULL) {
@@ -17,12 +14,14 @@ PmergeMe::PmergeMe(char **argv) {
 		_inputVector.push_back(atoi(argv[i]));
 	}
 
-	#ifdef DEBUG
+	generateInsertionOrder(_inputVector.size());
+
+#ifdef DEBUG
 	std::cout << "Before: ";
 	for (auto it : _inputVector)
 		std::cout << it << " ";
 	std::cout << "\n" << BORDER << "\n";
-	#endif
+#endif
 
 	auto t1 = std::chrono::high_resolution_clock::now();
 	std::vector<unsigned int> sortedVec = Ford_Johnson_Sort(_inputVector);
@@ -37,8 +36,13 @@ PmergeMe::PmergeMe(char **argv) {
 		std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3);
 
 #ifdef DEBUG
-	std::cout << "After: ";
+	std::cout << "After list: ";
 	for (const auto &it : sortedList) {
+		std::cout << it << " ";
+	}
+	std::cout << "\n";
+	std::cout << "After vec: ";
+	for (const auto &it : sortedVec) {
 		std::cout << it << " ";
 	}
 	std::cout << "\n";
@@ -70,6 +74,47 @@ PmergeMe::PmergeMe(char **argv) {
 }
 
 PmergeMe::~PmergeMe() {}
+
+void PmergeMe::generateInsertionOrder(const size_t &size) {
+	std::vector<unsigned int> jacobsthalNums = generateJacobsthalNums(size);
+
+	for (size_t i = 3; i < jacobsthalNums.size(); ++i) {
+		for (size_t j = jacobsthalNums[i]; j > jacobsthalNums[i - 1]; --j) {
+			if (j - 1 < size && j > 1)
+				_insertionOrder.emplace_back(j - 1);
+		}
+	}
+
+#ifdef DEBUG
+	std::cout << "Jacobsthal Numbers: ";
+	for (const auto &it : jacobsthalNums) {
+		std::cout << it << " ";
+	}
+	std::cout << "\n";
+
+	std::cout << "Insertion order: ";
+	for (const auto &it : _insertionOrder) {
+		std::cout << it << " ";
+	}
+	std::cout << "\n";
+#endif
+}
+
+std::vector<unsigned int> PmergeMe::generateJacobsthalNums(const size_t &size) {
+	std::vector<unsigned int> jacobsthal_nums = {0, 1};
+
+	unsigned int a = 0;
+	unsigned int b = 1;
+	unsigned int next;
+
+	while (b < size) {
+		next = a * 2 + b;
+		jacobsthal_nums.emplace_back(next);
+		a = b;
+		b = next;
+	}
+	return jacobsthal_nums;
+}
 
 bool PmergeMe::checkDuplicatesVec(std::vector<unsigned int> &arr) {
 	int n = arr.size();

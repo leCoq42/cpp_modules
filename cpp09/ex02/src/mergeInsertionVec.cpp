@@ -42,9 +42,7 @@ PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
 	if (!pairs.empty())
 		result.insert(result.begin(), pairs[0].first);
 
-	std::vector<size_t> insertOrder = generateInsertionOrder(pairs.size());
-
-	result = InsertionSortJacobsthal(result, pairs, insertOrder);
+	result = InsertionSortJacobsthal(result, pairs);
 
 	if (n % 2 == 1) {
 		size_t pos =
@@ -105,63 +103,22 @@ void PmergeMe::mergePairs(
 		++mergedIndex;
 	}
 
-	std::copy(leftArr.begin() + leftIndex, leftArr.end(), pairs.begin() + mergedIndex);
-    std::copy(rightArr.begin() + rightIndex, rightArr.end(), pairs.begin() + mergedIndex);
+	std::copy(leftArr.begin() + leftIndex, leftArr.end(),
+			  pairs.begin() + mergedIndex);
+	std::copy(rightArr.begin() + rightIndex, rightArr.end(),
+			  pairs.begin() + mergedIndex);
 }
 
 std::vector<unsigned int> PmergeMe::InsertionSortJacobsthal(
 	std::vector<unsigned int> &sorted,
-	const std::vector<std::pair<unsigned int, unsigned int>> &pairs,
-	const std::vector<size_t> &insertOrder) {
-	for (const size_t &k : insertOrder) {
-		size_t pos = binarySearchVec(sorted, pairs[k].first, 0, k);
-		sorted.insert(sorted.begin() + pos, pairs[k].first);
-	}
-	return sorted;
-}
-
-std::vector<size_t> PmergeMe::generateInsertionOrder(const size_t &size) {
-	std::vector<unsigned int> jacobsthalNums = generateJacobsthalNums(size);
-
-	std::vector<size_t> insertOrder;
-	for (size_t i = 3; i < jacobsthalNums.size(); ++i) {
-		for (size_t j = jacobsthalNums[i]; j > jacobsthalNums[i - 1]; --j) {
-			if (j - 1 < size && j > 1)
-				insertOrder.emplace_back(j - 1);
+	const std::vector<std::pair<unsigned int, unsigned int>> &pairs) {
+	for (const size_t &k : _insertionOrder) {
+		if (k < pairs.size()) {
+			size_t pos = binarySearchVec(sorted, pairs[k].first, 0, k);
+			sorted.insert(sorted.begin() + pos, pairs[k].first);
 		}
 	}
-
-#ifdef DEBUG
-	std::cout << "Jacobsthal Numbers: ";
-	for (const auto &it : jacobsthalNums) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-
-	std::cout << "Insertion order: ";
-	for (const auto &it : insertOrder) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-#endif
-
-	return insertOrder;
-}
-
-std::vector<unsigned int> PmergeMe::generateJacobsthalNums(const size_t &size) {
-	std::vector<unsigned int> jacobsthal_nums = {0, 1};
-
-	unsigned int a = 0;
-	unsigned int b = 1;
-	unsigned int next;
-
-	while (b < size) {
-		next = a * 2 + b;
-		jacobsthal_nums.emplace_back(next);
-		a = b;
-		b = next;
-	}
-	return jacobsthal_nums;
+	return sorted;
 }
 
 size_t PmergeMe::binarySearchVec(std::vector<unsigned int> &res,

@@ -47,9 +47,7 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 	if (!pairs.empty())
 		result.push_front(pairs.front().first);
 
-	std::list<size_t> insertOrder = generateInsertionOrderList(pairs.size());
-
-	result = InsertionSortJacobsthal(result, pairs, insertOrder);
+	result = InsertionSortJacobsthal(result, pairs);
 
 	if (n % 2 == 1) {
 		unsigned int pending = *std::prev(input.end());
@@ -126,80 +124,23 @@ void PmergeMe::mergePairs(
 
 std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
 	std::list<unsigned int> &sorted,
-	const std::list<std::pair<unsigned int, unsigned int>> &pairs,
-	const std::list<size_t> &insertOrder) {
-	for (size_t k : insertOrder) {
-		auto low = sorted.begin();
-		auto high = sorted.begin();
-		std::advance(high, k);
+	const std::list<std::pair<unsigned int, unsigned int>> &pairs) {
+	for (size_t k : _insertionOrder) {
+		if (k < pairs.size()) {
+			auto low = sorted.begin();
+			auto high = sorted.begin();
+			std::advance(high, k);
 
-		auto pending = pairs.begin();
-		std::advance(pending, k);
+			auto pending = pairs.begin();
+			std::advance(pending, k);
 
-		unsigned int elementToInsert = pending->first;
+			unsigned int elementToInsert = pending->first;
 
-		auto pos = binarySearchList(sorted, elementToInsert, low, high);
-		sorted.insert(pos, elementToInsert);
+			auto pos = binarySearchList(sorted, elementToInsert, low, high);
+			sorted.insert(pos, elementToInsert);
+		}
 	}
 	return sorted;
-}
-
-std::list<size_t> PmergeMe::generateInsertionOrderList(const size_t &size) {
-	std::list<unsigned int> jacobsthalNums = generateJacobsthalNumsList(size);
-
-	std::list<size_t> insertOrder;
-	if (size < 1)
-		return insertOrder;
-
-	auto it = jacobsthalNums.begin();
-	std::advance(it, 3);
-
-	auto prev_it = jacobsthalNums.begin();
-	std::advance(prev_it, 2);
-
-	while (it != jacobsthalNums.end()) {
-		auto cur = *it;
-		auto prev = *prev_it;
-
-		for (size_t j = cur; j > prev; --j) {
-			if (j - 1 < size && j > 1) {
-				insertOrder.emplace_back(j - 1);
-			}
-		}
-		++it;
-		++prev_it;
-	}
-
-#ifdef DEBUG
-	std::cout << "Jacobsthal Numbers: ";
-	for (const auto &it : jacobsthalNums) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-	std::cout << "Insertion order: ";
-	for (const auto &it : insertOrder) {
-		std::cout << it << " ";
-	}
-	std::cout << "\n";
-#endif
-	return insertOrder;
-}
-
-std::list<unsigned int>
-PmergeMe::generateJacobsthalNumsList(const size_t &size) {
-	std::list<unsigned int> jacobsthal_nums = {0, 1};
-
-	unsigned int a = 0;
-	unsigned int b = 1;
-	unsigned int next;
-
-	while (b < size) {
-		next = 2 * a + b;
-		jacobsthal_nums.emplace_back(next);
-		a = b;
-		b = next;
-	}
-	return jacobsthal_nums;
 }
 
 std::list<unsigned int>::iterator
