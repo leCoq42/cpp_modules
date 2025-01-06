@@ -134,6 +134,7 @@ std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
 	auto pairsIt = pairs.begin();
 	size_t currentPos = 0;
 
+	// size_t i = 0;
 	for (size_t k : _insertionOrder) {
 		if (k < pairs.size()) {
 			if (k < currentPos) {
@@ -145,18 +146,26 @@ std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
 				++pairsIt;
 				++currentPos;
 			}
+			// auto pending = pairsIt;
+			// std::advance(pending, k);
+			// auto upper = sorted.begin();
+			// std::advance(upper, k + i);
 
 			unsigned int elementToInsert = pairsIt->first;
+			std::cout << "pending = " << elementToInsert << "\n";
 			auto pos = binarySearchList(sorted, elementToInsert, sorted.begin(),
 										sorted.end());
+										// upper);
 			sorted.insert(pos, elementToInsert);
+			// i++;
 		}
 	}
 	return sorted;
 }
 
 std::list<unsigned int>::iterator
-PmergeMe::binarySearchList(const std::list<unsigned int> &arr, unsigned int item,
+PmergeMe::binarySearchList(const std::list<unsigned int> &arr,
+						   unsigned int item,
 						   std::list<unsigned int>::iterator low,
 						   std::list<unsigned int>::iterator high) {
 	if (std::distance(low, high) < 1)

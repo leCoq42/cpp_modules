@@ -104,11 +104,13 @@ void PmergeMe::mergePairs(
 void PmergeMe::InsertionSortJacobsthal(
 	std::vector<unsigned int> &sorted,
 	const std::vector<std::pair<unsigned int, unsigned int>> &pairs) {
-		int i = 0;
+	size_t i = 0;
 	for (const size_t &k : _insertionOrder) {
 		if (k < pairs.size()) {
-			size_t pos =
-				binarySearchVec(sorted, pairs[k].first, 0, k + i);
+			// std::cout << "k + i: " << k + i << ", sorted_size = " <<
+			// sorted.size()
+			// 		  << "\n";
+			size_t pos = binarySearchVec(sorted, pairs[k].first, 0, k + i);
 			sorted.insert(sorted.begin() + pos, pairs[k].first);
 			i++;
 		}
@@ -116,28 +118,29 @@ void PmergeMe::InsertionSortJacobsthal(
 }
 
 size_t PmergeMe::binarySearchVec(const std::vector<unsigned int> &arr,
-                                unsigned int item, size_t low, size_t high) {
-    if (high >= arr.size())
+								 unsigned int item, size_t low, size_t high) {
+	// for (auto it : arr)
+	// 	std::cout << it << " ";
+	// std::cout << "\n";
+	// std::cout << "low: " << low << ", high: " << high << ", x: " << item
+	// 		  << "\n";
+
+	if (high >= arr.size())
 		high = arr.size() - 1;
 	if (item < arr[low])
 		return low;
 
-	// for (auto it: arr)
-	// 	std::cout << it << " ";
-	// std::cout << "\n";
-    // std::cout << "low: " << low << ", high: " << high << ", x: " << item << "\n";
+	while (low <= high) {
+		size_t mid = low + (high - low) / 2;
+		// std::cout << "low: " << low << ", high: " << high << ", mid: " << mid
+		// 		  << ", x: " << item << "\n";
 
-    while (low <= high) {
-        size_t mid = low + (high - low) / 2;
-		// std::cout << "low: " << low << ", high: " << high << ", mid: " << mid << ", x: " << item << "\n";
-        
-        if (arr[mid] == item)
-            return mid;         
-        if (arr[mid] < item)
-            low = mid + 1;
-        else
-            high = (mid == 0) ? 0 : mid - 1;
-    }    
-    return low;
+		if (arr[mid] == item)
+			return mid;
+		if (arr[mid] < item)
+			low = mid + 1;
+		else
+			high = (mid == 0) ? 0 : mid - 1;
+	}
+	return low;
 }
-
