@@ -42,21 +42,13 @@ PmergeMe::Ford_Johnson_Sort(std::vector<unsigned int> &input) {
 	if (!pairs.empty())
 		result.insert(result.begin(), pairs[0].first);
 
-	result = InsertionSortJacobsthal(result, pairs);
+	InsertionSortJacobsthal(result, pairs);
 
 	if (n % 2 == 1) {
 		size_t pos =
 			binarySearchVec(result, input.back(), 0, result.size() - 1);
 		result.insert(result.begin() + pos, input.back());
 	}
-
-#ifdef DEBUG
-	std::cout << "sorted: ";
-	for (auto num : result) {
-		std::cout << num << " ";
-	}
-	std::cout << "\n" << BORDER << "\n";
-#endif
 
 	return result;
 }
@@ -109,30 +101,43 @@ void PmergeMe::mergePairs(
 			  pairs.begin() + mergedIndex);
 }
 
-std::vector<unsigned int> PmergeMe::InsertionSortJacobsthal(
+void PmergeMe::InsertionSortJacobsthal(
 	std::vector<unsigned int> &sorted,
 	const std::vector<std::pair<unsigned int, unsigned int>> &pairs) {
+		int i = 0;
 	for (const size_t &k : _insertionOrder) {
 		if (k < pairs.size()) {
-			size_t pos = binarySearchVec(sorted, pairs[k].first, 0, k);
+			size_t pos =
+				binarySearchVec(sorted, pairs[k].first, 0, k + i);
 			sorted.insert(sorted.begin() + pos, pairs[k].first);
+			i++;
 		}
 	}
-	return sorted;
 }
 
-size_t PmergeMe::binarySearchVec(std::vector<unsigned int> &res,
-								 unsigned int item, size_t low, size_t high) {
-	if (high <= low)
-		return (item > res[low]) ? (low + 1) : low;
+size_t PmergeMe::binarySearchVec(const std::vector<unsigned int> &arr,
+                                unsigned int item, size_t low, size_t high) {
+    if (high >= arr.size())
+		high = arr.size() - 1;
+	if (item < arr[low])
+		return low;
 
-	size_t mid = (low + high) / 2;
+	// for (auto it: arr)
+	// 	std::cout << it << " ";
+	// std::cout << "\n";
+    // std::cout << "low: " << low << ", high: " << high << ", x: " << item << "\n";
 
-	if (item == res[mid])
-		return mid + 1;
-
-	if (item > res[mid])
-		return binarySearchVec(res, item, mid + 1, high);
-
-	return binarySearchVec(res, item, low, mid);
+    while (low <= high) {
+        size_t mid = low + (high - low) / 2;
+		// std::cout << "low: " << low << ", high: " << high << ", mid: " << mid << ", x: " << item << "\n";
+        
+        if (arr[mid] == item)
+            return mid;         
+        if (arr[mid] < item)
+            low = mid + 1;
+        else
+            high = (mid == 0) ? 0 : mid - 1;
+    }    
+    return low;
 }
+
