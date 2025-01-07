@@ -20,9 +20,9 @@ BitcoinExchange::BitcoinExchange(std::filesystem::path inPath,
 	: _dbPath(dbPath), _inputPath(inPath) {
 
 	if (!std::filesystem::exists(_dbPath))
-		throw "Error: database file doesn't exist.";
+		throw std::runtime_error("Database file doesn't exist.");
 	if (!std::filesystem::exists(_inputPath))
-		throw "Error: input file doesn't exist.";
+		throw std::runtime_error("Input file doesn't exist.");
 	_datetimeMap = parse_database(_dbPath, ",");
 #ifdef DEBUG
 	print_database(_datetimeMap);
@@ -64,7 +64,7 @@ BitcoinExchange::parse_database(std::filesystem::path dbPath,
 				continue;
 			size_t delim_pos = line.find(delim);
 			if (delim_pos == std::string::npos)
-				throw "Error: invalid csv.";
+				throw std::runtime_error("Invalid csv.");
 			else {
 				key = split_keyvalue(value, line, delim_pos);
 				if (key < 0)
@@ -73,7 +73,7 @@ BitcoinExchange::parse_database(std::filesystem::path dbPath,
 			}
 		}
 	} else
-		throw "Error: Couldn't open file.";
+		throw std::runtime_error("Couldn't open file.");
 	return dbMap;
 }
 
@@ -174,5 +174,5 @@ void BitcoinExchange::exchange() {
 			}
 		}
 	} else
-		throw "Error: Couldn't open file.";
+		throw std::runtime_error("Couldn't open file.");
 }
