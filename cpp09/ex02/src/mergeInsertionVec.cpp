@@ -107,9 +107,6 @@ void PmergeMe::InsertionSortJacobsthal(
 	size_t i = 1;
 	for (const size_t &k : _insertionOrder) {
 		if (k < pairs.size()) {
-			// std::cout << "k + i: " << k + i << ", sorted_size = " <<
-			// sorted.size()
-			// 		  << "\n";
 			size_t pos = binarySearchVec(sorted, pairs[k].first, 0, k + i);
 			sorted.insert(sorted.begin() + pos, pairs[k].first);
 			i++;
@@ -119,12 +116,6 @@ void PmergeMe::InsertionSortJacobsthal(
 
 size_t PmergeMe::binarySearchVec(const std::vector<unsigned int> &arr,
 								 unsigned int item, size_t low, size_t high) {
-	// for (auto it : arr)
-	// 	std::cout << it << " ";
-	// std::cout << "\n";
-	// std::cout << "low: " << low << ", high: " << high << ", x: " << item
-	// 		  << "\n";
-
 	if (high >= arr.size())
 		high = arr.size() - 1;
 	if (item < arr[low])
@@ -132,8 +123,6 @@ size_t PmergeMe::binarySearchVec(const std::vector<unsigned int> &arr,
 
 	while (low <= high) {
 		size_t mid = low + (high - low) / 2;
-		// std::cout << "low: " << low << ", high: " << high << ", mid: " << mid
-		// 		  << ", x: " << item << "\n";
 
 		if (arr[mid] == item)
 			return mid;

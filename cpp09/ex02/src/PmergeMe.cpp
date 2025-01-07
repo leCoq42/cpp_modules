@@ -38,7 +38,6 @@ PmergeMe::PmergeMe(char **argv) {
 	std::cout << "\n";
 #endif
 
-
 	std::cout << "Sorted vec size = " << sortedVec.size() << "\n";
 	std::cout << "Vec contains dups: " << checkDuplicatesVec(sortedVec) << "\n";
 	if (std::is_sorted(sortedVec.begin(), sortedVec.end())) {
@@ -50,7 +49,6 @@ PmergeMe::PmergeMe(char **argv) {
 			  << "us\n";
 
 	std::cout << BORDER << "\n";
-
 
 	std::cout << "List sorting: \n";
 	auto t3 = std::chrono::high_resolution_clock::now();
@@ -79,8 +77,6 @@ PmergeMe::PmergeMe(char **argv) {
 			  << "us\n";
 	std::cout << BORDER << "\n";
 }
-
-PmergeMe::~PmergeMe() {}
 
 void PmergeMe::generateInsertionOrder(const size_t &size) {
 	std::vector<unsigned int> jacobsthalNums = generateJacobsthalNums(size);
@@ -136,7 +132,6 @@ bool PmergeMe::checkDuplicatesList(std::list<unsigned int> arr) {
 	if (arr.empty())
 		return false;
 
-
 	arr.sort();
 	auto prev = arr.begin();
 	auto cur = std::next(arr.begin());
@@ -149,3 +144,5 @@ bool PmergeMe::checkDuplicatesList(std::list<unsigned int> arr) {
 	}
 	return false;
 }
+
+PmergeMe::~PmergeMe() {}

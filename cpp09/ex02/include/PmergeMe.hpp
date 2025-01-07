@@ -13,6 +13,9 @@ class PmergeMe {
 
   private:
 	PmergeMe();
+	PmergeMe(const PmergeMe &rhs);
+	PmergeMe &operator=(const PmergeMe &rhs);
+
 	std::list<unsigned int> _inputList;
 	std::vector<unsigned int> _inputVector;
 	std::vector<size_t> _insertionOrder;
@@ -30,8 +33,8 @@ class PmergeMe {
 	void InsertionSortJacobsthal(
 		std::vector<unsigned int> &sorted,
 		const std::vector<std::pair<unsigned int, unsigned int>> &pairs);
-	size_t binarySearchVec(const std::vector<unsigned int> &arr, unsigned int item,
-						   size_t low, size_t high);
+	size_t binarySearchVec(const std::vector<unsigned int> &arr,
+						   unsigned int item, size_t low, size_t high);
 	std::vector<unsigned int> generateJacobsthalNums(const size_t &size);
 	bool checkDuplicatesVec(std::vector<unsigned int> arr);
 
@@ -46,11 +49,7 @@ class PmergeMe {
 		std::list<unsigned int> &sorted,
 		const std::list<std::pair<unsigned int, unsigned int>> &pairs);
 	std::list<unsigned int>::iterator
-	// binarySearchList(const std::list<unsigned int> &arr, unsigned int item,
-	// 				 std::list<unsigned int>::iterator low,
-	// 				 std::list<unsigned int>::iterator high);
-		binarySearchList(unsigned int item,
-					 std::list<unsigned int>::iterator low,
+	binarySearchList(unsigned int item, std::list<unsigned int>::iterator low,
 					 std::list<unsigned int>::iterator high);
 	bool checkDuplicatesList(std::list<unsigned int> arr);
 };

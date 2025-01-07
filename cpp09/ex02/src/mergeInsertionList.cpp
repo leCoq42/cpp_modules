@@ -64,8 +64,7 @@ PmergeMe::Ford_Johnson_Sort(std::list<unsigned int> &input) {
 
 	if (n % 2 == 1) {
 		unsigned int pending = input.back();
-		auto pos =
-			binarySearchList(pending, result.begin(), result.end());
+		auto pos = binarySearchList(pending, result.begin(), result.end());
 		result.insert(pos, input.back());
 	}
 
@@ -128,59 +127,59 @@ void PmergeMe::mergePairs(
 }
 
 std::list<unsigned int> PmergeMe::InsertionSortJacobsthal(
-    std::list<unsigned int> &sorted,
-    const std::list<std::pair<unsigned int, unsigned int>> &pairs) {
+	std::list<unsigned int> &sorted,
+	const std::list<std::pair<unsigned int, unsigned int>> &pairs) {
 
-    auto pairsIt = pairs.begin();
+	auto pairsIt = pairs.begin();
 	size_t currentPos = 0;
 
-    size_t i = 1;
-    for (size_t k : _insertionOrder) {
-        if (k < pairs.size()) {
-            if (k < currentPos) {
-                pairsIt = pairs.begin();
-                currentPos = 0;
-            }
-            
-            while (currentPos < k) {
-                ++pairsIt;
-                ++currentPos;
-            }
+	size_t i = 1;
+	for (size_t k : _insertionOrder) {
+		if (k < pairs.size()) {
+			if (k < currentPos) {
+				pairsIt = pairs.begin();
+				currentPos = 0;
+			}
 
-            unsigned int elementToInsert = pairsIt->first;
+			while (currentPos < k) {
+				++pairsIt;
+				++currentPos;
+			}
+
+			unsigned int elementToInsert = pairsIt->first;
 			auto upper = sorted.begin();
 			std::advance(upper, k + i);
 
-            auto insertPos = binarySearchList(elementToInsert, sorted.begin(), 
-                                           upper);
-            sorted.insert(insertPos, elementToInsert);
-            ++i;
-        }
-    }
-    return sorted;
+			auto insertPos =
+				binarySearchList(elementToInsert, sorted.begin(), upper);
+			sorted.insert(insertPos, elementToInsert);
+			++i;
+		}
+	}
+	return sorted;
 }
 
 std::list<unsigned int>::iterator
 PmergeMe::binarySearchList(unsigned int item,
-                          std::list<unsigned int>::iterator low,
-                          std::list<unsigned int>::iterator high) {
-    if (item <= *low)
-        return low;
-        
-    auto end = high;
-    while (low != high) {
-        auto mid = low;
-        std::advance(mid, std::distance(low, high) / 2);
-        
-        if (item == *mid)
-            return mid;
-        if (item < *mid)
-            high = mid;
-        else
-            low = std::next(mid);
-            
-        if (low == end)
-            return low;
-    }
-    return low;
+						   std::list<unsigned int>::iterator low,
+						   std::list<unsigned int>::iterator high) {
+	if (item <= *low)
+		return low;
+
+	auto end = high;
+	while (low != high) {
+		auto mid = low;
+		std::advance(mid, std::distance(low, high) / 2);
+
+		if (item == *mid)
+			return mid;
+		if (item < *mid)
+			high = mid;
+		else
+			low = std::next(mid);
+
+		if (low == end)
+			return low;
+	}
+	return low;
 }
