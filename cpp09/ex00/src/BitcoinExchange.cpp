@@ -159,6 +159,10 @@ void BitcoinExchange::exchange() {
 					if (res != _datetimeMap.begin()) {
 						res--;
 						price = res->second;
+					} else {
+						price = 0;
+						std::cerr << "Error: no price data available before '2009-01-01'."
+								  << std::endl;
 					}
 				}
 #ifdef DEBUG
