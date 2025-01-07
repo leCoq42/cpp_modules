@@ -23,33 +23,33 @@ PmergeMe::PmergeMe(char **argv) {
 	std::cout << "\n" << BORDER << "\n";
 #endif
 
-// 	std::cout << "Vector sorting: \n";
-// 	auto t1 = std::chrono::high_resolution_clock::now();
-// 	std::vector<unsigned int> sortedVec = Ford_Johnson_Sort(_inputVector);
-// 	auto t2 = std::chrono::high_resolution_clock::now();
-// 	auto vec_time_us =
-// 		std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
-//
-// #ifdef DEBUG
-// 	std::cout << "After vec: ";
-// 	for (const auto &it : sortedVec) {
-// 		std::cout << it << " ";
-// 	}
-// 	std::cout << "\n";
-// #endif
-//
-//
-// 	std::cout << "Sorted vec size = " << sortedVec.size() << "\n";
-// 	std::cout << "Vec contains dups: " << checkDuplicatesVec(sortedVec) << "\n";
-// 	if (std::is_sorted(sortedVec.begin(), sortedVec.end())) {
-// 		std::cout << "Verification: The vector is sorted!\n";
-// 	} else {
-// 		std::cout << "Verification: The vector is NOT sorted.\n";
-// 	}
-// 	std::cout << "Time to sort(vec): " << double(vec_time_us.count()) / 1000
-// 			  << "us\n";
-//
-// 	std::cout << BORDER << "\n";
+	std::cout << "Vector sorting: \n";
+	auto t1 = std::chrono::high_resolution_clock::now();
+	std::vector<unsigned int> sortedVec = Ford_Johnson_Sort(_inputVector);
+	auto t2 = std::chrono::high_resolution_clock::now();
+	auto vec_time_us =
+		std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
+
+#ifdef DEBUG
+	std::cout << "After vec: ";
+	for (const auto &it : sortedVec) {
+		std::cout << it << " ";
+	}
+	std::cout << "\n";
+#endif
+
+
+	std::cout << "Sorted vec size = " << sortedVec.size() << "\n";
+	std::cout << "Vec contains dups: " << checkDuplicatesVec(sortedVec) << "\n";
+	if (std::is_sorted(sortedVec.begin(), sortedVec.end())) {
+		std::cout << "Verification: The vector is sorted!\n";
+	} else {
+		std::cout << "Verification: The vector is NOT sorted.\n";
+	}
+	std::cout << "Time to sort(vec): " << double(vec_time_us.count()) / 1000
+			  << "us\n";
+
+	std::cout << BORDER << "\n";
 
 
 	std::cout << "List sorting: \n";

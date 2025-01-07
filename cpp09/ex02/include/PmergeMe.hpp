@@ -46,7 +46,10 @@ class PmergeMe {
 		std::list<unsigned int> &sorted,
 		const std::list<std::pair<unsigned int, unsigned int>> &pairs);
 	std::list<unsigned int>::iterator
-	binarySearchList(const std::list<unsigned int> &arr, unsigned int item,
+	// binarySearchList(const std::list<unsigned int> &arr, unsigned int item,
+	// 				 std::list<unsigned int>::iterator low,
+	// 				 std::list<unsigned int>::iterator high);
+		binarySearchList(unsigned int item,
 					 std::list<unsigned int>::iterator low,
 					 std::list<unsigned int>::iterator high);
 	bool checkDuplicatesList(std::list<unsigned int> arr);

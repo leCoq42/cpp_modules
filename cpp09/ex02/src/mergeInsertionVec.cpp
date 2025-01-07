@@ -104,7 +104,7 @@ void PmergeMe::mergePairs(
 void PmergeMe::InsertionSortJacobsthal(
 	std::vector<unsigned int> &sorted,
 	const std::vector<std::pair<unsigned int, unsigned int>> &pairs) {
-	size_t i = 0;
+	size_t i = 1;
 	for (const size_t &k : _insertionOrder) {
 		if (k < pairs.size()) {
 			// std::cout << "k + i: " << k + i << ", sorted_size = " <<
